@@ -1,0 +1,74 @@
+---
+export const prerender = false;
+import { getEntry } from "astro:content";
+import { processMarkdownRecipe } from "../../utils/recipe";
+import Layout from "../../layouts/Layout.astro";
+const { slug } = Astro.params;
+
+if (!slug) {
+  throw new Error("No slug provided");
+}
+
+const recipe = await getEntry("recipes", slug);
+
+if (!recipe) {
+  throw new Error(`No recipe found for slug ${slug}`);
+}
+
+const { name, author, time } = recipe.data;
+const md = processMarkdownRecipe(recipe.body);
+---
+
+<Layout title=`${name}`>
+  <main
+    class="p-4 h-screen w-screen max-w-lg sm:max-w-xl mx-auto flex flex-col"
+  >
+    <a class="text-orange-700" href="/">back home</a>
+    <article>
+      <h1 class="text-xl">
+        {name} by {author}
+      </h1>
+      <em>Cooking time: {time}</em>
+      <details open>
+        {
+          md.cookware && md.cookware.length > 0 && (
+            <>
+              <summary class="text-lg my-4">Cookware</summary>
+              <ul>
+                {md.cookware.map((cookware) => (
+                  <li>
+                    <strong>{cookware.quantity}</strong> {cookware.name}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </details>
+      <details open>
+        <summary class="text-lg my-4">Ingredients</summary>
+        <ul>
+          {
+            md.ingredients.map((ingredient) => (
+              <li>
+                <strong>{ingredient.quantity}</strong> {ingredient.unit} -{" "}
+                {ingredient.name}
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+
+      <h2 class="text-lg my-4">Steps</h2>
+      <ol class="list-decimal">
+        {
+          md.steps.map((step) => (
+            <li>
+              <p>{step}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </article>
+  </main>
+</Layout>
