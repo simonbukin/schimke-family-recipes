@@ -1,3 +1,3 @@
 # Schimke Family Recipes
 
-A recipe website build with Astro, Svelte and cooklang-ts.
+A recipe website built with Astro and Svelte.
