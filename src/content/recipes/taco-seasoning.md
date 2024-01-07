@@ -2,7 +2,7 @@
 author: Simon Bukin
 time: 5 minutes
 type: seasoning
-name: Simon's Poggers Taco Seasoning
+name: Simon's Taco Seasoning
 ---
 
 Ingredients:
@@ -16,6 +16,6 @@ Ingredients:
 - Sea salt, 1 tsp
 - Black pepper, 1 tsp
 
-Directions:
+Steps:
 
-- Mix it all together
+- Mix it all together.
