@@ -1,0 +1,40 @@
+---
+export const prerender = false;
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { pickRandom } from "../../utils/generic";
+const { slug } = Astro.params;
+
+const recipes = await getCollection("recipes");
+const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
+---
+
+<Layout title={`It's ${slug} time`}>
+  <main
+    class="h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
+  >
+    Hello you've reached {slug} can I take your order
+    {
+      filteredRecipes.length === 0 && (
+        <p>
+          Haha oops we're out of everything try something{" "}
+          <a
+            class="underline text-orange-500"
+            href={`/recipe/${pickRandom(recipes).slug}`}
+          >
+            random
+          </a>
+        </p>
+      )
+    }
+    <ul>
+      {
+        filteredRecipes.map((recipe) => (
+          <li>
+            <a href={`/recipe/${recipe.slug}`}>{recipe.data.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

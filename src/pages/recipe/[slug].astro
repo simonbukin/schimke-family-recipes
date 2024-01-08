@@ -29,22 +29,22 @@ const md = processMarkdownRecipe(recipe.body);
         {name} by {author}
       </h1>
       <em>Cooking time: {time}</em>
-      <details open>
-        {
-          md.cookware && md.cookware.length > 0 && (
-            <>
-              <summary class="text-lg my-4">Cookware</summary>
-              <ul>
-                {md.cookware.map((cookware) => (
-                  <li>
-                    <strong>{cookware.quantity}</strong> {cookware.name}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )
-        }
-      </details>
+
+      {
+        md.cookware && md.cookware.length > 0 && (
+          <details open>
+            <summary class="text-lg my-4">Cookware</summary>
+            <ul>
+              {md.cookware.map((cookware) => (
+                <li>
+                  <strong>{cookware.quantity}</strong> {cookware.name}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )
+      }
+
       <details open>
         <summary class="text-lg my-4">Ingredients</summary>
         <ul>
