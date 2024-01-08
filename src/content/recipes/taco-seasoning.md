@@ -1,7 +1,7 @@
 ---
 author: Simon Bukin
 time: 5 minutes
-type: seasoning
+type: entree
 name: Simon's Taco Seasoning
 ---
 

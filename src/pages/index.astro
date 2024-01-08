@@ -2,28 +2,96 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Search from "../components/Search.svelte";
+import bread from "./_bread.jpg";
+
+const buttons = [
+  {
+    name: "breakfast",
+    bg: "bg-emerald-200",
+    border: "border-emerald-400",
+  },
+  {
+    name: "entree",
+    bg: "bg-sky-200",
+    border: "border-sky-400",
+  },
+  {
+    name: "dessert",
+    bg: "bg-violet-200",
+    border: "border-violet-400",
+  },
+  {
+    name: "snack",
+    bg: "bg-pink-200",
+    border: "border-pink-400",
+  },
+  {
+    name: "drinks",
+    bg: "bg-lime-200",
+    border: "border-lime-400",
+  },
+];
 
 const recipes = await getCollection("recipes");
 ---
 
 <Layout title="Schimke Family Recipes">
-  <main
-    class="h-screen w-screenmax-w-lg sm:max-w-xl mx-auto grid place-content-center"
+  <div
+    class="w-full h-[40vh] bg"
+    style={{
+      backgroundImage: `url(${bread.src})`,
+      backgroundPosition: "0% 50%",
+      backgroundSize: "cover",
+      boxShadow: "#fff7ed 0px -100px 30px -30px inset",
+    }}
   >
-    <h1 class="header text-green-700 mb-4 font-display text-4xl">
-      Schimke Family Recipes
-    </h1>
-    <a
-      href="/new-recipe"
-      class="w-full p-2 bg-orange-200 border-orange-400 border-4 mt-2 mb-6 text-lg rounded-md"
-      >Upload a recipe!</a
+    <main
+      class="h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
     >
-    <Search client:load searchContent={recipes} />
-  </main>
+      <h1
+        class="p-8 absolute top-[10vh] sm:top-[13vh] header font-bold text-amber-400 mb-4 font-display text-4xl sm:text-6xl"
+      >
+        Schimke Family Recipes
+      </h1>
+
+      <ul class="flex flex-row gap-2">
+        {
+          buttons.map((button) => {
+            return (
+              <li>
+                <a
+                  href={`/category/${button.name}`}
+                  class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
+                >
+                  {button.name}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <a
+        href="/new-recipe"
+        class="mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
+        >Upload a recipe!</a
+      >
+      <Search client:load searchContent={recipes} />
+
+      <footer class="absolute bottom-0 text-amber-500">
+        photo by <a
+          href="https://unsplash.com/@debbiewidjaja?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Debbie Widjaja</a
+        > on <a
+          href="https://unsplash.com/photos/brown-bread-on-brown-wooden-chopping-board-H_PXix_4Bwc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Unsplash</a
+        >
+      </footer>
+    </main>
+  </div>
 </Layout>
 
 <style>
   .header {
-    text-shadow: 2px 2px 0px hsl(0deg 0% 0% / 20%);
+    text-shadow: 0px 0px 50px hsl(0deg 0% 0% / 80%);
   }
 </style>

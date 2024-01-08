@@ -8,8 +8,8 @@ type MarkdownRecipe = {
 
 type Ingredient = {
   name: string;
-  quantity: string;
-  unit: string;
+  quantity: string | "to taste";
+  unit?: string;
 };
 
 type Cookware = {
