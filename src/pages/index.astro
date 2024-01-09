@@ -7,26 +7,31 @@ import bread from "./_bread.jpg";
 const buttons = [
   {
     name: "breakfast",
+    emoji: "🍳",
     bg: "bg-emerald-200",
     border: "border-emerald-400",
   },
   {
     name: "entree",
+    emoji: "🍲",
     bg: "bg-sky-200",
     border: "border-sky-400",
   },
   {
     name: "dessert",
+    emoji: "🍰",
     bg: "bg-violet-200",
     border: "border-violet-400",
   },
   {
     name: "snack",
+    emoji: "🍿",
     bg: "bg-pink-200",
     border: "border-pink-400",
   },
   {
-    name: "drinks",
+    name: "drink",
+    emoji: "🍹",
     bg: "bg-lime-200",
     border: "border-lime-400",
   },
@@ -63,19 +68,24 @@ const recipes = await getCollection("recipes");
                   href={`/category/${button.name}`}
                   class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
                 >
-                  {button.name}
+                  {button.emoji}
                 </a>
               </li>
             );
           })
         }
+        <li>
+          <a
+            href="/new-recipe"
+            class="grow mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
+            >Upload a recipe!</a
+          >
+        </li>
       </ul>
-      <a
-        href="/new-recipe"
-        class="mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
-        >Upload a recipe!</a
-      >
-      <Search client:load searchContent={recipes} />
+
+      <section class="mt-6">
+        <Search client:load searchContent={recipes} />
+      </section>
 
       <footer class="absolute bottom-0 text-amber-500">
         photo by <a

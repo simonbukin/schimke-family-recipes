@@ -3,6 +3,7 @@ author: Simon Bukin
 time: 5 minutes
 type: entree
 name: Simon's Taco Seasoning
+emoji: 🌮
 ---
 
 Ingredients:
