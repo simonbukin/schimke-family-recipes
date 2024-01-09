@@ -12,14 +12,14 @@ import PasswordProtected from "../../components/PasswordProtected.svelte";
     <h1 class="text-center header text-green-700 mb-4 font-display text-4xl">
       Upload a new recipe
     </h1>
-    <PasswordProtected client:load>
-      <UploadForm />
-    </PasswordProtected>
+    <!-- <PasswordProtected client:load> -->
+    <!-- <UploadForm client:load /> -->
+    <!-- </PasswordProtected> -->
   </main>
-</Layout>
 
-<style>
-  .header {
-    text-shadow: 2px 2px 0px hsl(0deg 0% 0% / 20%);
-  }
-</style>
+  <style>
+    .header {
+      text-shadow: 2px 2px 0px hsl(0deg 0% 0% / 20%);
+    }
+  </style>
+</Layout>
