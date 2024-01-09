@@ -27,13 +27,27 @@
     Ingredients
     <textarea
       name="ingredients"
-      placeholder="Ingredients, a <name>, <amount>, <unit> per line"
+      placeholder="Ingredients, in the following format per line: <name>, <amount> <unit>"
       rows="5"></textarea>
-    <button
+  </label>
+  <label class="flex flex-col">
+    Cookware
+    <textarea
+      name="cookware"
+      placeholder="Cookware, in the following format per line: <name>, <amount>"
+      rows="5"></textarea>
+  </label>
+  <label class="flex flex-col">
+    Steps
+    <textarea
+      name="steps"
+      placeholder="Steps, with one step per line."
+      rows="5"></textarea>
+  </label>
+  <button
       class="w-full bg-orange-200 border-orange-400 border-4 mt-2 mb-6 text-lg rounded-md"
       type="submit">Submit</button
     >
-  </label>
 </form>
 
 <style>

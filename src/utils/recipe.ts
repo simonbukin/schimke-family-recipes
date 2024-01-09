@@ -42,7 +42,11 @@ export const getMarkdownRecipe = (
   }
   blocks.push(block);
 
-  const markdownRecipe = {
+  const markdownRecipeUnprocessed: {
+    steps: string[];
+    ingredients: string[];
+    cookware: string[];
+  } = {
     steps: [],
     ingredients: [],
     cookware: [],
@@ -53,20 +57,42 @@ export const getMarkdownRecipe = (
       .slice(1)
       .filter((line) => line !== "")
       .map((line) => line.split("- ")[1]);
-    markdownRecipe[blockName.toLowerCase()] = blockContent;
+    if (blockName === "Ingredients") {
+      markdownRecipeUnprocessed.ingredients = blockContent;
+    } else if (blockName === "Cookware") {
+      markdownRecipeUnprocessed.cookware = blockContent;
+    } else if (blockName === "Steps") {
+      markdownRecipeUnprocessed.steps = blockContent;
+    } else {
+      throw new Error(`Unknown block name ${blockName}`);
+    }
   }
 
-  if (markdownRecipe.ingredients) {
-    markdownRecipe.ingredients = markdownRecipe.ingredients.map((ingredient) =>
+  const markdownRecipe: {
+    steps: string[];
+    ingredients: Ingredient[];
+    cookware: Cookware[];
+  } = {
+    steps: markdownRecipeUnprocessed.steps.map((step) => step.trim()),
+    ingredients: markdownRecipeUnprocessed["ingredients"].map((ingredient) =>
       processItem(ingredient, "ingredient")
-    );
-  }
-
-  if (markdownRecipe.cookware) {
-    markdownRecipe.cookware = markdownRecipe.cookware.map((cookware) =>
+    ),
+    cookware: markdownRecipeUnprocessed["cookware"].map((cookware) =>
       processItem(cookware, "cookware")
-    );
-  }
+    ),
+  };
+
+  // if (markdownRecipe.ingredients) {
+  //   markdownRecipe.ingredients = markdownRecipe.ingredients.map((ingredient) =>
+  //     processItem(ingredient, "ingredient")
+  //   );
+  // }
+
+  // if (markdownRecipe.cookware) {
+  //   markdownRecipe.cookware = markdownRecipe.cookware.map((cookware) =>
+  //     processItem(cookware, "cookware")
+  //   );
+  // }
   return markdownRecipe as MarkdownRecipe;
 };
 

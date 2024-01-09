@@ -2,7 +2,7 @@
   let cleared = false;
   async function submitHandler(e: Event) {
     const formData = new FormData(e.target as HTMLFormElement);
-    const response = await fetch("/api/validateUser.json", {
+    const response = await fetch("/api/validateUser", {
       method: "POST",
       body: formData,
     });
