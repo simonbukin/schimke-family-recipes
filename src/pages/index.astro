@@ -51,7 +51,7 @@ const recipes = await getCollection("recipes");
     }}
   >
     <main
-      class="h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
+      class="p-4 h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
     >
       <h1
         class="p-8 absolute top-[10vh] sm:top-[13vh] header font-bold text-amber-400 mb-4 font-display text-4xl sm:text-6xl"
@@ -77,8 +77,8 @@ const recipes = await getCollection("recipes");
         <li>
           <a
             href="/new-recipe"
-            class="grow mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
-            >Upload a recipe!</a
+            class="whitespace-nowrap mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
+            >New recipe</a
           >
         </li>
       </ul>

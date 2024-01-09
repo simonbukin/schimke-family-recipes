@@ -1,4 +1,15 @@
-<form class="flex flex-col gap-4" action="/api/recipes" method="POST">
+<script lang="ts">
+  async function handleSubmit(e: Event) {
+    const formData = new FormData(e.target as HTMLFormElement);;
+    const response = await fetch('/api/uploadRecipe', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+  }
+</script>
+
+<form class="flex flex-col gap-4" on:submit|preventDefault={handleSubmit} method="POST">
   <label class="flex flex-col">
     Name
     <input type="text" name="name" placeholder="Name" />
