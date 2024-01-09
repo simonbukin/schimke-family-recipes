@@ -3,5 +3,6 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true
-  }
+  },
+  "exclude": ["dist", "node_modules"]
 }
