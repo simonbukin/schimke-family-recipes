@@ -4,6 +4,7 @@ time: 30 minutes
 servings: "4"
 type: entree
 name: Poor Man's Stroganoff
+emoji: 🥩
 ---
 
 Cookware:

@@ -6,13 +6,15 @@ import Layout from "../../layouts/Layout.astro";
 const { slug } = Astro.params;
 
 if (!slug) {
-  throw new Error("No slug provided");
+  Astro.redirect("/");
+  return;
 }
 
 const recipe = await getEntry("recipes", slug);
 
 if (!recipe) {
-  throw new Error(`No recipe found for slug ${slug}`);
+  Astro.redirect("/");
+  return;
 }
 
 const { name, author, time } = recipe.data;
@@ -20,9 +22,7 @@ const md = processMarkdownRecipe(recipe.body);
 ---
 
 <Layout title=`${name}`>
-  <main
-    class="p-4 h-screen w-screen max-w-lg sm:max-w-xl mx-auto flex flex-col"
-  >
+  <main class="p-4 h-screen max-w-screen-lg sm:max-w-xl mx-auto flex flex-col">
     <a class="text-orange-700" href="/">back home</a>
     <article>
       <h1 class="text-xl">
@@ -37,7 +37,10 @@ const md = processMarkdownRecipe(recipe.body);
             <ul>
               {md.cookware.map((cookware) => (
                 <li>
-                  <strong>{cookware.quantity}</strong> {cookware.name}
+                  <p>
+                    <strong>{cookware.quantity}</strong>{" "}
+                    {`${cookware.name}${+cookware.quantity > 1 ? "s" : ""}`}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -50,9 +53,15 @@ const md = processMarkdownRecipe(recipe.body);
         <ul>
           {
             md.ingredients.map((ingredient) => (
-              <li>
-                <strong>{ingredient.quantity}</strong> {ingredient.unit} -{" "}
-                {ingredient.name}
+              <li class="my-2 flex flex-row gap-4">
+                <input
+                  type="checkbox"
+                  class="aspect-square w-[20px] shrink-0"
+                />
+                <section class="flex flex-row items-center gap-2">
+                  <strong>{ingredient.quantity}</strong> {ingredient.unit}{" "}
+                  {ingredient.name.toLowerCase()}
+                </section>
               </li>
             ))
           }
@@ -60,10 +69,10 @@ const md = processMarkdownRecipe(recipe.body);
       </details>
 
       <h2 class="text-lg my-4">Steps</h2>
-      <ol class="list-decimal">
+      <ol>
         {
           md.steps.map((step) => (
-            <li>
+            <li class="flex flex-row items-start my-2 gap-4">
               <p>{step}</p>
             </li>
           ))

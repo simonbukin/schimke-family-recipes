@@ -5,11 +5,12 @@ servings: 16 cookies
 type: dessert
 name: Chocolate Chip Cookies
 source: https://caitsplate.com/cooks-illustrated-ultimate-chocolate-chip-cookies/
+emoji: 🍪
 ---
 
 Ingredients:
 
-- Unbleached all purpose flour, 1 3/4 cups
+- Unbleached all purpose flour, 1.75 cups
 - Baking soda, 1/2 teaspoon
 - Unsalted butter, 14 tablespoons
 - Granulated sugar, 1/4 cup

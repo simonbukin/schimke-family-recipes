@@ -6,6 +6,7 @@ const recipeSchema = z.object({
   servings: z.string().optional(),
   type: z.string(),
   name: z.string(),
+  emoji: z.string().emoji(),
 });
 
 export type Recipe = z.infer<typeof recipeSchema>;

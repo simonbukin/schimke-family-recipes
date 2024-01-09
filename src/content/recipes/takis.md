@@ -4,6 +4,7 @@ time: 5 minutes
 servings: 1 bag
 type: snack
 name: A Bag of Takis
+emoji: 🌶️
 ---
 
 Cookware:

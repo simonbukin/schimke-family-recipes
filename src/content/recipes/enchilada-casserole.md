@@ -4,6 +4,7 @@ time: 60 minutes
 servings: "4"
 type: entree
 name: Enchilada Casserole
+emoji: 🌯
 ---
 
 Cookware:

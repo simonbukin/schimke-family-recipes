@@ -4,6 +4,7 @@ time: 90 minutes
 servings: 12 cookies
 type: dessert
 name: Cranberry Orange Cookies
+emoji: 🍪
 ---
 
 Cookware:
