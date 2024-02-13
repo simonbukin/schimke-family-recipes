@@ -2,8 +2,16 @@
   import { onMount } from "svelte";
   import { pickRandom } from "../utils/generic";
   import { convertDurationToMinutes } from "../utils/time";
+  import type { Recipe } from '../content/config'
+  import { slide } from "svelte/transition";
 
-  export let searchContent: any[] = [];
+  export let searchContent: {
+    id: string,
+    slug: string,
+    body: string,
+    data: Recipe
+  }[] = [];
+
   export let funMode: boolean = false;
   let searchValue: string = '';
 
@@ -24,7 +32,7 @@
   const playAudio = () => {
     if (audio) {
       audio.pause();
-      audio.fastSeek(0.25);
+      audio.currentTime = 0.1;
       audio.play();
     }
   }
@@ -61,7 +69,7 @@
       const bMinutes = convertDurationToMinutes(b.data.time);
       return aMinutes - bMinutes;
     }) as recipe (recipe.id)}
-      <div class="flex flex-row justify-between" >
+      <div transition:slide={{duration: 200}} class="flex flex-row justify-between" >
         <a href={`/recipe/${recipe.slug}`}><h1 class="text-xl">{recipe.data.emoji} {recipe.data.name}</h1></a>
         <h2 class="font-bold text-2xl">{convertDurationToMinutes(recipe.data.time)} minutes</h2>
       </div>

@@ -7,13 +7,13 @@ name: A Bag of Takis
 emoji: 🌶️
 ---
 
-Cookware:
-
-- Chopsticks, 1 pair
-
 Ingredients:
 
 - Takis, 1 bag
+
+Cookware:
+
+- Chopsticks, 1 pair
 
 Steps:
 

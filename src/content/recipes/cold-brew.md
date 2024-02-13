@@ -14,7 +14,7 @@ Ingredients:
 
 Cookware:
 
-- 16oz wide mouth mason jar
+- 16oz wide mouth mason jar, 1
 
 Steps:
 

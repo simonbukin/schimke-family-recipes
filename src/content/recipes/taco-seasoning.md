@@ -2,6 +2,7 @@
 author: Simon Bukin
 time: 5 minutes
 type: entree
+servings: "2"
 name: Simon's Taco Seasoning
 emoji: 🌮
 ---

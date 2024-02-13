@@ -59,35 +59,31 @@ const recipes = await getCollection("recipes");
         Schimke Family Recipes
       </h1>
 
-      <ul class="flex flex-row gap-2">
-        {
-          buttons.map((button) => {
-            return (
-              <li>
-                <a
-                  href={`/category/${button.name}`}
-                  class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
-                >
-                  {button.emoji}
-                </a>
-              </li>
-            );
-          })
-        }
-        <li>
-          <a
-            href="/new-recipe"
-            class="whitespace-nowrap mt-4 p-2 bg-amber-200 border-amber-400 border-4 text-lg rounded-md"
-            >New recipe</a
-          >
-        </li>
-      </ul>
+      <section class=" sm:w-96 w-96">
+        <ul class="flex flex-row justify-between">
+          {
+            buttons.map((button) => {
+              return (
+                <li>
+                  <a
+                    href={`/category/${button.name}`}
+                    class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
+                  >
+                    {button.emoji}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
 
-      <section class="mt-6">
-        <Search client:load searchContent={recipes} />
+        <section class="mt-6">
+          <Search client:load searchContent={recipes} />
+        </section>
       </section>
+     
 
-      <footer class="absolute bottom-0 text-amber-500">
+      <footer class="hidden absolute bottom-0 text-amber-500">
         photo by <a
           href="https://unsplash.com/@debbiewidjaja?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
           >Debbie Widjaja</a

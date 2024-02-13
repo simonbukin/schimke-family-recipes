@@ -1,119 +1,67 @@
-const RECIPE_PARTS = ["Ingredients", "Steps", "Cookware"];
-
-type MarkdownRecipe = {
-  cookware?: Cookware[];
-  ingredients: Ingredient[];
-  steps: string[];
-};
-
-type Ingredient = {
-  name: string;
-  quantity: string | "to taste";
-  unit?: string;
-};
-
-type Cookware = {
+interface Ingredient {
   name: string;
   quantity: string;
-};
+  unit: string;
+}
 
-export const processMarkdownRecipe = (recipe: string) => {
-  const recipeLines = recipe.split("\n");
-  const markdownRecipe = getMarkdownRecipe(recipeLines, RECIPE_PARTS);
-  return markdownRecipe;
-};
+interface Cookware {
+  name: string;
+  quantity: string;
+}
 
-export const getMarkdownRecipe = (
-  lines: string[],
-  headers: string[]
-): MarkdownRecipe => {
-  const blocks = [];
-  let block = [];
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i];
-    const [lineName] = line.split(":");
-    if (line.includes(":") && headers.includes(lineName)) {
-      if (block.length > 0) {
-        blocks.push(block);
-        block = [];
-      }
-    }
-    block.push(line);
-  }
-  blocks.push(block);
+interface Recipe {
+  steps: string[];
+  ingredients: Ingredient[];
+  cookware: Cookware[];
+}
 
-  const markdownRecipeUnprocessed: {
-    steps: string[];
-    ingredients: string[];
-    cookware: string[];
-  } = {
+export function parseRecipe(lines: string[]): Recipe {
+  const recipe: Recipe = {
     steps: [],
     ingredients: [],
     cookware: [],
   };
-  for (const block of blocks) {
-    const [blockName] = block[0].split(":");
-    const blockContent = block
-      .slice(1)
-      .filter((line) => line !== "")
-      .map((line) => line.split("- ")[1]);
-    if (blockName === "Ingredients") {
-      markdownRecipeUnprocessed.ingredients = blockContent;
-    } else if (blockName === "Cookware") {
-      markdownRecipeUnprocessed.cookware = blockContent;
-    } else if (blockName === "Steps") {
-      markdownRecipeUnprocessed.steps = blockContent;
-    } else {
-      throw new Error(`Unknown block name ${blockName}`);
+
+  let section = "";
+
+  lines.forEach((line) => {
+    if (line.startsWith("Ingredients:")) {
+      section = "ingredients";
+    } else if (line.startsWith("Cookware:")) {
+      section = "cookware";
+    } else if (line.startsWith("Steps:")) {
+      section = "steps";
+    } else if (line.trim() !== "") {
+      line = trimLine(line);
+      switch (section) {
+        case "ingredients":
+          const [name, quantity, unit] = line
+            .split(",")
+            .map((part) => part.trim());
+          recipe.ingredients.push({
+            name,
+            quantity,
+            unit: unit || "",
+          });
+          break;
+        case "cookware":
+          const [cookwareName, cookwareQuantity] = line
+            .split(",")
+            .map((part) => part.trim());
+          recipe.cookware.push({
+            name: cookwareName,
+            quantity: cookwareQuantity,
+          });
+          break;
+        case "steps":
+          recipe.steps.push(line);
+          break;
+      }
     }
-  }
+  });
+  return recipe;
+}
 
-  const markdownRecipe: {
-    steps: string[];
-    ingredients: Ingredient[];
-    cookware: Cookware[];
-  } = {
-    steps: markdownRecipeUnprocessed.steps.map((step) => step.trim()),
-    ingredients: markdownRecipeUnprocessed["ingredients"].map((ingredient) =>
-      processItem(ingredient, "ingredient")
-    ),
-    cookware: markdownRecipeUnprocessed["cookware"].map((cookware) =>
-      processItem(cookware, "cookware")
-    ),
-  };
-
-  // if (markdownRecipe.ingredients) {
-  //   markdownRecipe.ingredients = markdownRecipe.ingredients.map((ingredient) =>
-  //     processItem(ingredient, "ingredient")
-  //   );
-  // }
-
-  // if (markdownRecipe.cookware) {
-  //   markdownRecipe.cookware = markdownRecipe.cookware.map((cookware) =>
-  //     processItem(cookware, "cookware")
-  //   );
-  // }
-  return markdownRecipe as MarkdownRecipe;
-};
-
-const processItem = (
-  item: string,
-  type: "ingredient" | "cookware"
-): Ingredient | Cookware => {
-  const [name, partial] = item.split(", ");
-  const [quantity, ...unit] = partial.split(" ");
-  if (type === "ingredient") {
-    return {
-      name,
-      quantity,
-      unit: unit.join(" "),
-    } as Ingredient;
-  } else if (type === "cookware") {
-    return {
-      name,
-      quantity,
-    } as Cookware;
-  } else {
-    throw new Error("Unknown item type");
-  }
+export const trimLine = (line: string) => {
+  return line.replace(/^-/, "").trim();
 };
