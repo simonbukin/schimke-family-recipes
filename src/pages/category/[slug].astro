@@ -8,29 +8,31 @@ const recipes = await getCollection("recipes");
 const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
 ---
 
-<Layout title={`It's ${slug} time`}>
-  <main
-    class="h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
-  >
-    Hello you've reached {slug} can I take your order
-    {
-      filteredRecipes.length === 0 && (
-        <p>
-          Haha oops we're out of everything try something{" "}
-          <a
-            class="underline text-orange-500"
-            href={`/recipe/${pickRandom(recipes).slug}`}
-          >
-            random
-          </a>
-        </p>
-      )
-    }
-    <ul>
+<Layout title={`${slug} items`}>
+<main class="p-4 h-screen max-w-screen-lg sm:max-w-xl mx-auto flex flex-col">
+    <a class="text-orange-700" href="/">back home</a>
+    <article>
+      <h1 class="text-2xl bold">
+        {slug} items
+      </h1>
+      {
+        filteredRecipes.length === 0 && (
+          <p>
+            Haha oops we're out of everything try something{" "}
+            <a
+              class="underline text-orange-500"
+              href={`/recipe/${pickRandom(recipes).slug}`}
+            >
+              random
+            </a>
+          </p>
+        )
+      }
+      <ul class="my-2">
       {
         filteredRecipes.map((recipe) => (
-          <li>
-            <a href={`/recipe/${recipe.slug}`}>{recipe.data.name}</a>
+          <li class="my-2 text-xl">
+            {recipe.data.emoji} <a href={`/recipe/${recipe.slug}`}>{recipe.data.name}</a>
           </li>
         ))
       }

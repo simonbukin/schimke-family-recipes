@@ -25,7 +25,10 @@ const { title } = Astro.props;
   html {
     font-family: system-ui;
     @apply bg-orange-50;
-    overflow: hidden
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
   }
 
 </style>

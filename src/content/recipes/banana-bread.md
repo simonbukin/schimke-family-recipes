@@ -2,7 +2,7 @@
 author: Elisa Bauer 
 time: 70 minutes
 servings: 9 servings
-type: desert 
+type: dessert 
 name: Banana Bread
 emoji: 🍌 
 ---
@@ -20,7 +20,7 @@ Ingredients:
 
 Cookware:
 
-- 8x4 load pan, 1
+- 8x4 loaf pan, 1
 
 Steps:
 

@@ -1,7 +1,6 @@
 ---
 export const prerender = false;
 import { getEntry } from "astro:content";
-// import { processMarkdownRecipe } from "../../utils/recipe";
 import { parseRecipe } from '../../utils/recipe'
 import Layout from "../../layouts/Layout.astro";
 const { slug } = Astro.params;
@@ -18,8 +17,6 @@ if (!recipe) {
 }
 
 const { name, author, time } = recipe.data;
-// const md = processMarkdownRecipe(recipe.body);
-
 const md = parseRecipe(recipe.body.split('\n'))
 ---
 
@@ -83,3 +80,16 @@ const md = parseRecipe(recipe.body.split('\n'))
     </article>
   </main>
 </Layout>
+
+<style>
+ ol {
+    list-style-type: none;
+    counter-reset: list-counter;
+  }
+
+  ol li::before {
+    content: counter(list-counter) ".";
+    counter-increment: list-counter;
+    margin-right: 5px;
+  } 
+</style>
