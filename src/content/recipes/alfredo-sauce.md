@@ -19,7 +19,7 @@ Ingredients:
 
 Cookware:
 
-- Pan, 1
+- Sauce pan, 1
 - Whisk, 1
 
 Steps:
