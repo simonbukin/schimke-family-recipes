@@ -2,8 +2,8 @@
 author: Epicure
 time: 30 minutes
 servings: 4 servings
-type: entree
-name: Epicure Shepherd's Pie
+type: epicure
+name: Shepherd's Pie
 emoji: 🥧
 ---
 
