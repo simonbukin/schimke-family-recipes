@@ -7,6 +7,12 @@
 
   onMount(async () => {
     isSupported = "wakeLock" in navigator;
+    return async () => {
+      if (wakeLock) {
+        await wakeLock.release();
+        wakeLock = null;
+      }
+    }
   })
 
   const handleToggleClick = async (event) => {
