@@ -3,6 +3,7 @@ export const prerender = false;
 import { getEntry } from "astro:content";
 import { parseRecipe } from '../../utils/recipe'
 import Layout from "../../layouts/Layout.astro";
+import WakeLockToggle from '../../components/WakeLockToggle.svelte'
 const { slug } = Astro.params;
 
 if (!slug) {
@@ -28,6 +29,8 @@ const md = parseRecipe(recipe.body.split('\n'))
         {name} by {author}
       </h1>
       <em>Cooking time: {time}</em>
+
+      <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte"/>
 
       {
         md.cookware && md.cookware.length > 0 && (
