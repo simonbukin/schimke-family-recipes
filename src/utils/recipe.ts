@@ -1,7 +1,14 @@
 export interface Ingredient {
+  type: "ingredient";
   name: string;
   quantity: string;
   unit: string;
+}
+
+export interface Link {
+  type: "link";
+  name: string;
+  slug: string;
 }
 
 interface Cookware {
@@ -11,7 +18,7 @@ interface Cookware {
 
 interface Recipe {
   steps: string[];
-  ingredients: Ingredient[];
+  ingredients: (Ingredient | Link)[];
   cookware: Cookware[];
 }
 
@@ -35,11 +42,23 @@ export function parseRecipe(lines: string[]): Recipe {
       line = trimLine(line);
       switch (section) {
         case "ingredients":
+          if (line.indexOf("[[") != -1 && line.indexOf("]]") != -1) {
+            console.log("special af");
+            console.log(line);
+            const noBrackets = line.substring(2, line.length - 2);
+            recipe.ingredients.push({
+              type: "link",
+              name: noBrackets,
+              slug: noBrackets.toLowerCase().split(" ").join("-"),
+            });
+            break;
+          }
           const [name, quantityAndUnit] = line
             .split(",")
             .map((part) => part.trim());
           if (quantityAndUnit === "to taste") {
             recipe.ingredients.push({
+              type: "ingredient",
               name,
               quantity: quantityAndUnit,
               unit: "",
@@ -49,6 +68,7 @@ export function parseRecipe(lines: string[]): Recipe {
               .split(" ")
               .map((part) => part.trim());
             recipe.ingredients.push({
+              type: "ingredient",
               name,
               quantity,
               unit: unit || "",

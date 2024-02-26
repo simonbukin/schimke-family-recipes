@@ -18,7 +18,7 @@ Ingredients:
 - Baby carrots, 1 handful
 - Sugar snap peas, 1 handful
 - Epicure Sweet & Sour Stir Fry™ Seasoning Packet, 1
-- THE RICE WE MAKE USUALLY, 1
+- [[Botan Rice]] 
 - Olive oil, 2 tbsp
 - Water chestnut, 4 oz can
 - Salt, to taste
@@ -34,7 +34,7 @@ Cookware:
 
 Steps:
 
-- Start RICE.
+- Start Botan Rice.
 - In a medium bowl, combine seasoning packet and pineapple chunks.
 - Add white vinegar, water, and soy sauce.
 - Dice red bell pepper and chop carrots.
