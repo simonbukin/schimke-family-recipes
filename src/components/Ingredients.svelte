@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Ingredient } from '../utils/recipe';
-  import { servingsMultiplier } from '../stores/servings' 
+  import { servings } from '../stores/servings' 
   import { adjustIngredientQuantity} from '../utils/recipe'
   export let ingredients: Ingredient[];
+  export let initialServings: number;
 </script>
 
 <details open>
@@ -15,7 +16,7 @@
           class="aspect-square w-[20px] shrink-0"
         />
         <section class="flex flex-row items-center gap-2">
-          <strong>{adjustIngredientQuantity($servingsMultiplier, ingredient.quantity)}</strong> {ingredient.unit}{" "}
+          <strong>{adjustIngredientQuantity($servings, ingredient.quantity, initialServings)}</strong> {ingredient.unit}{" "}
           {ingredient.name}
         </section>
       </li> 

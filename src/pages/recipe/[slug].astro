@@ -20,6 +20,7 @@ if (!recipe) {
 }
 
 const { name, author, time, servings } = recipe.data;
+const servingsNum = parseInt(servings?.split(" ")[0] || "0")
 const md = parseRecipe(recipe.body.split('\n'));
 const { ingredients, cookware, steps } = md;
 ---
@@ -32,7 +33,7 @@ const { ingredients, cookware, steps } = md;
         <strong>{name}</strong> by {author}
       </h1>
       <em>Cooking time: {time}</em>
-      <Servings servingsString={servings} client:load />
+      <Servings servingsNum={servingsNum} client:load />
 
       <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte"/>
 
@@ -54,7 +55,7 @@ const { ingredients, cookware, steps } = md;
         )
       }
 
-      <Ingredients client:load ingredients={ingredients} /> 
+      <Ingredients client:load initialServings={servingsNum} ingredients={ingredients} /> 
 
       <h2 class="text-lg my-4">Steps</h2>
       <ol>

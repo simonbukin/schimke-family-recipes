@@ -79,21 +79,22 @@ export const trimLine = (line: string) => {
 
 // TODO: test
 export const adjustIngredientQuantity = (
-  multiplier: number,
-  quantity: string
+  currentServings: number,
+  quantity: string,
+  initialServings: number
 ) => {
+  const percentAdjusted = currentServings / initialServings;
   const quantityValue = quantity.split(" ")[0];
   try {
     const evaledQuantity = eval(quantityValue);
     if (!isNaN(parseFloat(evaledQuantity))) {
-      const dec = multiplier * evaledQuantity;
-      const fraction = findMatchingFraction(dec);
-      return fraction ? fraction : dec;
+      const decimal = percentAdjusted * evaledQuantity;
+      const fraction = findMatchingFraction(decimal);
+      return fraction ? fraction : decimal;
     }
   } catch (e) {
     return quantity;
   }
-
   return quantityValue;
 };
 
