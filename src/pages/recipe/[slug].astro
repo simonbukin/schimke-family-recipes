@@ -4,6 +4,8 @@ import { getEntry } from "astro:content";
 import { parseRecipe } from '../../utils/recipe'
 import Layout from "../../layouts/Layout.astro";
 import WakeLockToggle from '../../components/WakeLockToggle.svelte'
+import Servings from '../../components/Servings.svelte'
+import Ingredients from '../../components/Ingredients.svelte'
 const { slug } = Astro.params;
 
 if (!slug) {
@@ -17,27 +19,29 @@ if (!recipe) {
   return;
 }
 
-const { name, author, time } = recipe.data;
-const md = parseRecipe(recipe.body.split('\n'))
+const { name, author, time, servings } = recipe.data;
+const md = parseRecipe(recipe.body.split('\n'));
+const { ingredients, cookware, steps } = md;
 ---
 
 <Layout title=`${name}`>
   <main class="p-4 h-screen max-w-screen-lg sm:max-w-xl mx-auto flex flex-col">
-    <a class="text-orange-700" href="/">back home</a>
+    <a class="text-orange-700 mb-3" href="/">back home</a>
     <article>
       <h1 class="text-xl">
-        {name} by {author}
+        <strong>{name}</strong> by {author}
       </h1>
       <em>Cooking time: {time}</em>
+      <Servings servingsString={servings} client:load />
 
       <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte"/>
 
       {
-        md.cookware && md.cookware.length > 0 && (
+        cookware && cookware.length > 0 && (
           <details open>
             <summary class="text-lg my-4">Cookware</summary>
             <ul>
-              {md.cookware.map((cookware) => (
+              {cookware.map((cookware) => (
                 <li>
                   <p>
                     <strong>{cookware.quantity}</strong>{" "}
@@ -50,30 +54,12 @@ const md = parseRecipe(recipe.body.split('\n'))
         )
       }
 
-      <details open>
-        <summary class="text-lg my-4">Ingredients</summary>
-        <ul>
-          {
-            md.ingredients.map((ingredient) => (
-              <li class="my-2 flex flex-row gap-4">
-                <input
-                  type="checkbox"
-                  class="aspect-square w-[20px] shrink-0"
-                />
-                <section class="flex flex-row items-center gap-2">
-                  <strong>{ingredient.quantity}</strong> {ingredient.unit}{" "}
-                  {ingredient.name.toLowerCase()}
-                </section>
-              </li>
-            ))
-          }
-        </ul>
-      </details>
+      <Ingredients client:load ingredients={ingredients} /> 
 
       <h2 class="text-lg my-4">Steps</h2>
       <ol>
         {
-          md.steps.map((step) => (
+          steps.map((step) => (
             <li class="flex flex-row items-start my-2 gap-4">
               <p>{step}</p>
             </li>
