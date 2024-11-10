@@ -26,7 +26,6 @@ Steps:
 
 - Melt the butter over medium heat in a pan.
 - Whisk in the heavy whipping cream until combined.
-- Add the garlic powder and Italian seasoning.
+- Add the garlic powder, Italian seasoning and salt and pepper.
 - Gradually add the grated Parmesan cheese.
 - Simmer the sauce until smooth.
-- Season with salt and pepper to taste.
