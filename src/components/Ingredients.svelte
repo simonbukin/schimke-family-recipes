@@ -8,37 +8,32 @@
   export let ingredients: (Ingredient | Link)[];
   export let initialServings: number;
   
-  // Create a store for the display units, keeping original ingredients unchanged
   const displayUnits = writable(
     ingredients.map(ing => ing.type === 'link' ? null : (ing as Ingredient).unit)
   );
-  
+
   function handleUnitSwap(index: number) {
     $displayUnits = $displayUnits.map((unit, i) => {
       if (i !== index || !unit) return unit;
-      
-      const nextUnit = getNextUnit(unit);
-      return nextUnit;
+      return getNextUnit(unit);
     });
   }
 
   function getDisplayQuantity(ingredient: Ingredient, displayUnit: string): string {
-    if (!$servings || !initialServings) {
-      return ingredient.quantity;
-    }
-
     try {
-      if (ingredient.unit === displayUnit) {
-        return adjustIngredientQuantity($servings, ingredient.quantity, initialServings);
+      const baseQuantity = ingredient.quantity;
+      const servingsAdjusted = $servings && initialServings 
+        ? adjustIngredientQuantity($servings, baseQuantity, initialServings)
+        : baseQuantity;
+      
+      if (ingredient.unit !== displayUnit) {
+        const value = parseFloat(servingsAdjusted.toString());
+        if (!isNaN(value)) {
+          return convertUnit(value, ingredient.unit, displayUnit).toString();
+        }
       }
       
-      const adjustedQuantity = parseFloat(adjustIngredientQuantity($servings, ingredient.quantity, initialServings));
-      if (isNaN(adjustedQuantity)) {
-        return ingredient.quantity;
-      }
-      
-      const convertedQuantity = convertUnit(adjustedQuantity, ingredient.unit, displayUnit);
-      return convertedQuantity.toString();
+      return servingsAdjusted.toString();
     } catch (error) {
       console.error('Error calculating quantity:', error);
       return ingredient.quantity;
@@ -59,9 +54,11 @@
           {#if ingredient.type === 'link'}
             <a class="cool-text" href={`/recipe/${ingredient.slug}`}>{ingredient.name}</a>
           {:else}
-            <strong>
-              {getDisplayQuantity(ingredient, $displayUnits[i])}
-            </strong> 
+            {#key $servings}
+              <strong>
+                {getDisplayQuantity(ingredient, $displayUnits[i])}
+              </strong>
+            {/key} 
             <span class="flex items-center gap-1">
               {getUnitDisplay($displayUnits[i])}
               {#if isConvertible(ingredient.unit)}
