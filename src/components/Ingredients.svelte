@@ -23,13 +23,26 @@
   }
 
   function getDisplayQuantity(ingredient: Ingredient, displayUnit: string): string {
-    if (ingredient.unit === displayUnit) {
-      return adjustIngredientQuantity($servings, ingredient.quantity, initialServings);
+    if (!$servings || !initialServings) {
+      return ingredient.quantity;
     }
-    
-    const adjustedQuantity = parseFloat(adjustIngredientQuantity($servings, ingredient.quantity, initialServings));
-    const convertedQuantity = convertUnit(adjustedQuantity, ingredient.unit, displayUnit);
-    return convertedQuantity.toString();
+
+    try {
+      if (ingredient.unit === displayUnit) {
+        return adjustIngredientQuantity($servings, ingredient.quantity, initialServings);
+      }
+      
+      const adjustedQuantity = parseFloat(adjustIngredientQuantity($servings, ingredient.quantity, initialServings));
+      if (isNaN(adjustedQuantity)) {
+        return ingredient.quantity;
+      }
+      
+      const convertedQuantity = convertUnit(adjustedQuantity, ingredient.unit, displayUnit);
+      return convertedQuantity.toString();
+    } catch (error) {
+      console.error('Error calculating quantity:', error);
+      return ingredient.quantity;
+    }
   }
 </script>
 

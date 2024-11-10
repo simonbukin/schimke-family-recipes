@@ -3,8 +3,11 @@
   import { servings } from '../stores/servings'
 
   export let servingsNum: number;
+  
   onMount(() => {
-    servings.set(servingsNum)
+    if (servingsNum && servingsNum > 0) {
+      servings.set(servingsNum)
+    }
   })
 </script>
 
