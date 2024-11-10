@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Search from "../components/Search.svelte";
-import bread from "./_bread.jpg";
 
 const buttons = [
   {
@@ -36,70 +35,49 @@ const buttons = [
     border: "border-lime-400",
   },
   {
-    name: 'epicure',
-    emoji: '🍽️',
-    bg: 'bg-cyan-200',
-    border: 'border-cyan-400'
-  }
+    name: "epicure",
+    emoji: "🍽️",
+    bg: "bg-cyan-200",
+    border: "border-cyan-400",
+  },
 ];
 
 const recipes = await getCollection("recipes");
 ---
 
 <Layout title="Schimke Family Recipes">
-  <div
-    class="w-full h-[40vh] bg"
-    style={{
-      backgroundImage: `url(${bread.src})`,
-      backgroundPosition: "0% 50%",
-      backgroundSize: "cover",
-      boxShadow: "#fff7ed 0px -100px 30px -30px inset",
-    }}
-  >
-    <main
-      class="p-4 h-screen w-screen max-w-lg sm:max-w-xl mx-auto grid place-content-center"
-    >
+  <main class="min-h-screen bg-orange-50">
+    <header class="bg-amber-500 p-3 shadow-md mb-8">
       <h1
-        class="p-8 absolute top-[10vh] sm:top-[13vh] header font-bold text-amber-400 mb-4 font-display text-4xl sm:text-6xl"
+        class="max-w-lg sm:max-w-xl mx-auto font-display text-center text-2xl sm:text-3xl text-white"
       >
         Schimke Family Recipes
       </h1>
+    </header>
 
-      <section class=" sm:w-96 w-96">
-        <ul class="flex flex-row justify-between">
-          {
-            buttons.map((button) => {
-              return (
-                <li>
-                  <a
-                    href={`/category/${button.name}`}
-                    class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
-                  >
-                    {button.emoji}
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
+    <section class="p-4 max-w-lg sm:max-w-xl mx-auto">
+      <ul class="flex flex-row justify-between">
+        {
+          buttons.map((button) => {
+            return (
+              <li>
+                <a
+                  href={`/category/${button.name}`}
+                  class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
+                >
+                  {button.emoji}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
 
-        <section class="mt-6">
-          <Search client:load searchContent={recipes} />
-        </section>
+      <section class="mt-6">
+        <Search client:load searchContent={recipes} />
       </section>
-     
-
-      <footer class="hidden absolute bottom-0 text-amber-500">
-        photo by <a
-          href="https://unsplash.com/@debbiewidjaja?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
-          >Debbie Widjaja</a
-        > on <a
-          href="https://unsplash.com/photos/brown-bread-on-brown-wooden-chopping-board-H_PXix_4Bwc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
-          >Unsplash</a
-        >
-      </footer>
-    </main>
-  </div>
+    </section>
+  </main>
 </Layout>
 
 <style>
