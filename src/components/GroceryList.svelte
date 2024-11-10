@@ -44,8 +44,11 @@
 {/if}
 
 {#if isOpen}
-  <div class="fixed inset-0 bg-black bg-opacity-50 z-50" on:click={() => (isOpen = false)}></div>
-  
+  <button
+    class="fixed inset-0 bg-black bg-opacity-50 z-50"
+    on:click={() => (isOpen = false)}
+    on:keydown={e => e.key === 'Escape' && (isOpen = false)}
+  />
   <div class={`fixed z-50 bg-white ${isMobile ? 'inset-x-0 bottom-0 rounded-t-xl' : 'right-0 top-0 bottom-0 w-96'} transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-y-0' : isMobile ? 'translate-y-full' : 'translate-x-full'}`}>
     <div class="p-4 flex flex-col h-full">
       <div class="flex justify-between items-center mb-4">
