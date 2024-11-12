@@ -1,3 +1,5 @@
+import { convertUnit } from "./units";
+
 export interface Ingredient {
   type: "ingredient";
   name: string;
@@ -97,6 +99,59 @@ export const trimLine = (line: string) => {
   return line.replace(/^-/, "").trim();
 };
 
+// Define a proper type for quantities
+export type Quantity =
+  | { type: "measured"; value: number }
+  | { type: "toTaste" };
+
+// Helper functions to work with quantities
+export const parseQuantity = (raw: string | number): Quantity => {
+  if (raw === "to taste") return { type: "toTaste" };
+  const value = typeof raw === "string" ? eval(raw) : raw;
+  return { type: "measured", value };
+};
+
+export const getBaseQuantity = (ingredient: Ingredient): Quantity => {
+  try {
+    return parseQuantity(ingredient.quantity);
+  } catch (e) {
+    console.error("Error parsing quantity:", e);
+    return { type: "measured", value: NaN };
+  }
+};
+
+export const calculateServingsAdjustedQuantity = (
+  quantity: Quantity,
+  currentServings: number,
+  initialServings: number
+): Quantity => {
+  if (quantity.type === "toTaste") return quantity;
+  return {
+    type: "measured",
+    value: (quantity.value * currentServings) / initialServings,
+  };
+};
+
+export const convertToDisplayUnit = (
+  quantity: Quantity,
+  fromUnit: string,
+  toUnit: string
+): Quantity => {
+  if (quantity.type === "toTaste") return quantity;
+  if (fromUnit === toUnit) return quantity;
+  return {
+    type: "measured",
+    value: convertUnit(quantity.value, fromUnit, toUnit),
+  };
+};
+
+export const formatQuantity = (quantity: Quantity): string => {
+  if (quantity.type === "toTaste") return "to taste";
+  if (isNaN(quantity.value)) return quantity.value.toString();
+  const fraction = findMatchingFraction(quantity.value);
+  return fraction || quantity.value.toFixed(2).replace(/\.?0+$/, "");
+};
+
 // TODO: test
 export const adjustIngredientQuantity = (
   currentServings: number,
@@ -128,24 +183,32 @@ export function findMatchingFraction(decimal: number) {
     2: ["1/2"],
     3: ["1/3", "2/3"],
     4: ["1/4", "2/4", "3/4"],
-    5: ["1/5", "2/5", "3/5", "4/5"],
-    6: ["1/6", "2/6", "3/6", "4/6", "5/6"],
-    7: ["1/7", "2/7", "3/7", "4/7", "5/7", "6/7"],
-    8: ["1/8", "2/8", "3/8", "4/8", "5/8", "6/8", "7/8"],
+    8: ["1/8", "3/8", "5/8", "7/8"],
+    16: ["1/16", "3/16", "5/16", "7/16", "9/16", "11/16", "13/16", "15/16"],
   };
 
-  for (let denominator = 2; denominator <= 8; denominator++) {
+  // Handle whole numbers
+  if (Number.isInteger(decimal)) {
+    return decimal.toString();
+  }
+
+  // Split into whole and decimal parts
+  const wholePart = Math.floor(decimal);
+  const decimalPart = decimal - wholePart;
+
+  for (let denominator of [2, 3, 4, 8, 16]) {
     const fractionValues = fractions[denominator];
     for (const fractionValue of fractionValues) {
       const [numeratorStr] = fractionValue.split("/");
       const numerator = parseInt(numeratorStr);
       const fraction = numerator / denominator;
-      const diff = Math.abs(fraction - decimal);
+      const diff = Math.abs(fraction - decimalPart);
       if (diff < 0.0001) {
-        return `${numerator}/${denominator}`;
+        return wholePart > 0 ? `${wholePart} ${fractionValue}` : fractionValue;
       }
     }
   }
 
-  return null;
+  // If no matching fraction found, return decimal with up to 3 decimal places
+  return decimal.toFixed(3).replace(/\.?0+$/, "");
 }

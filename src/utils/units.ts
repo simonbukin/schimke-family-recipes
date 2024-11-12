@@ -7,6 +7,84 @@ export type Unit = {
   displayName?: string;
 };
 
+// Define unit aliases mapping with common abbreviations
+const unitAliases: { [key: string]: string } = {
+  // Volume aliases
+  cups: "cup",
+  c: "cup",
+  "c.": "cup",
+
+  tablespoon: "tbsp",
+  tablespoons: "tbsp",
+  tbl: "tbsp",
+  tbs: "tbsp",
+  "tbsp.": "tbsp",
+  T: "tbsp",
+  "T.": "tbsp",
+
+  teaspoon: "tsp",
+  teaspoons: "tsp",
+  "tsp.": "tsp",
+  t: "tsp",
+  "t.": "tsp",
+
+  milliliter: "ml",
+  milliliters: "ml",
+  "ml.": "ml",
+  mL: "ml",
+  "mL.": "ml",
+
+  liter: "l",
+  liters: "l",
+  "l.": "l",
+  L: "l",
+  "L.": "l",
+
+  "fluid ounce": "fl oz",
+  "fluid ounces": "fl oz",
+  "fluid oz": "fl oz",
+  "fl. oz.": "fl oz",
+  "fl.oz.": "fl oz",
+  "fl oz.": "fl oz",
+  "fl. oz": "fl oz",
+
+  pint: "pint",
+  pints: "pint",
+  pt: "pint",
+  "pt.": "pint",
+
+  quart: "quart",
+  quarts: "quart",
+  qt: "quart",
+  "qt.": "quart",
+
+  // Mass aliases
+  gram: "g",
+  grams: "g",
+  "g.": "g",
+
+  kilogram: "kg",
+  kilograms: "kg",
+  "kg.": "kg",
+
+  ounce: "oz",
+  ounces: "oz",
+  "oz.": "oz",
+
+  pound: "lb",
+  pounds: "lb",
+  "lb.": "lb",
+  lbs: "lb",
+  "lbs.": "lb",
+  "#": "lb",
+
+  stick: "stick",
+  sticks: "stick",
+  "stick of": "stick",
+  "sticks of": "stick",
+};
+
+// Core unit definitions remain the same
 export const units: { [key: string]: Unit } = {
   // Volume Units
   cup: {
@@ -21,6 +99,7 @@ export const units: { [key: string]: Unit } = {
       pint: 0.5,
       quart: 0.25,
       cup: 1,
+      stick: 2,
     },
   },
   ml: {
@@ -34,6 +113,7 @@ export const units: { [key: string]: Unit } = {
       tsp: 0.202884,
       "fl oz": 0.033814,
       ml: 1,
+      stick: 0.0084535,
     },
   },
   l: {
@@ -47,6 +127,7 @@ export const units: { [key: string]: Unit } = {
       quart: 1.05669,
       gallon: 0.264172,
       l: 1,
+      stick: 8.4535,
     },
   },
   tbsp: {
@@ -58,6 +139,7 @@ export const units: { [key: string]: Unit } = {
       cup: 0.0625,
       "fl oz": 0.5,
       tbsp: 1,
+      stick: 0.125,
     },
   },
   tsp: {
@@ -69,6 +151,7 @@ export const units: { [key: string]: Unit } = {
       cup: 0.0208333,
       "fl oz": 0.166667,
       tsp: 1,
+      stick: 0.0416667,
     },
   },
   "fl oz": {
@@ -80,6 +163,7 @@ export const units: { [key: string]: Unit } = {
       tbsp: 2,
       tsp: 6,
       "fl oz": 1,
+      stick: 0.25,
     },
   },
   pint: {
@@ -92,6 +176,7 @@ export const units: { [key: string]: Unit } = {
       ml: 473.176,
       l: 0.473176,
       pint: 1,
+      stick: 4,
     },
   },
   quart: {
@@ -104,6 +189,20 @@ export const units: { [key: string]: Unit } = {
       ml: 946.353,
       l: 0.946353,
       quart: 1,
+      stick: 8,
+    },
+  },
+  stick: {
+    name: "stick",
+    type: "volume",
+    conversions: {
+      cup: 0.5,
+      tbsp: 8,
+      tsp: 24,
+      "fl oz": 4,
+      ml: 118.294,
+      l: 0.118294,
+      stick: 1,
     },
   },
 
@@ -150,38 +249,53 @@ export const units: { [key: string]: Unit } = {
   },
 };
 
-// Helper function to check if a unit is convertible
-export function isConvertible(unit: string): boolean {
-  return !!units[unit?.toLowerCase()];
+// Modified helper functions to handle aliases
+export function normalizeUnit(unit: string): string {
+  if (!unit) return unit;
+  const normalized = unit.toLowerCase().trim();
+  return unitAliases[normalized] || normalized;
 }
 
-// Get the display name of a unit (for proper capitalization/formatting)
+export function isConvertible(unit: string): boolean {
+  const normalized = normalizeUnit(unit);
+  return !!units[normalized];
+}
+
 export function getUnitDisplay(unit: string): string {
-  const unitData = units[unit?.toLowerCase()];
+  const normalized = normalizeUnit(unit);
+  const unitData = units[normalized];
   return unitData?.displayName || unit;
 }
 
-// Convert between units
 export function convertUnit(
   value: number,
   fromUnit: string,
   toUnit: string
 ): number {
-  const unit = units[fromUnit.toLowerCase()];
-  if (!unit || !unit.conversions[toUnit]) {
+  const normalizedFrom = normalizeUnit(fromUnit);
+  const normalizedTo = normalizeUnit(toUnit);
+  const unit = units[normalizedFrom];
+
+  if (!unit || !unit.conversions[normalizedTo]) {
     return value;
   }
-  return +(value * unit.conversions[toUnit]).toFixed(3);
+  const converted = +(value * unit.conversions[normalizedTo]).toFixed(3);
+  return converted;
 }
 
-// Get the next unit in the conversion cycle
 export function getNextUnit(currentUnit: string): string {
-  const unit = units[currentUnit.toLowerCase()];
+  console.log("currentUnit", currentUnit);
+  const normalized = normalizeUnit(currentUnit);
+  console.log("normalized", normalized);
+  const unit = units[normalized];
+  console.log("unit", unit);
   if (!unit) return currentUnit;
 
   const possibleUnits = Object.keys(unit.conversions);
-  // Sort units to ensure consistent order
+  console.log("possibleUnits", possibleUnits);
   const sortedUnits = possibleUnits.sort();
-  const currentIndex = sortedUnits.indexOf(currentUnit.toLowerCase());
+  console.log("sortedUnits", sortedUnits);
+  const currentIndex = sortedUnits.indexOf(normalized);
+  console.log("currentIndex", currentIndex);
   return sortedUnits[(currentIndex + 1) % sortedUnits.length];
 }

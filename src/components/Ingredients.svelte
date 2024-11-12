@@ -1,9 +1,15 @@
 <script lang="ts">
   import type { Ingredient, Link } from '../utils/recipe';
   import { servings } from '../stores/servings';
-  import { adjustIngredientQuantity } from '../utils/recipe';
+  import { 
+    getBaseQuantity,
+    calculateServingsAdjustedQuantity,
+    convertToDisplayUnit,
+    formatQuantity
+  } from '../utils/recipe';
   import { convertUnit, getNextUnit, isConvertible, getUnitDisplay } from '../utils/units';
   import { writable } from 'svelte/store';
+  import { pipe } from '../utils/generic';
   
   export let ingredients: (Ingredient | Link)[];
   export let initialServings: number;
@@ -21,22 +27,16 @@
 
   function getDisplayQuantity(ingredient: Ingredient, displayUnit: string): string {
     try {
-      const baseQuantity = ingredient.quantity;
-      const servingsAdjusted = $servings && initialServings 
-        ? adjustIngredientQuantity($servings, baseQuantity, initialServings)
-        : baseQuantity;
-      
-      if (ingredient.unit !== displayUnit) {
-        const value = parseFloat(servingsAdjusted.toString());
-        if (!isNaN(value)) {
-          return convertUnit(value, ingredient.unit, displayUnit).toString();
-        }
-      }
-      
-      return servingsAdjusted.toString();
+      return pipe(
+        ingredient,
+        getBaseQuantity,
+        quantity => calculateServingsAdjustedQuantity(quantity, $servings, initialServings),
+        quantity => convertToDisplayUnit(quantity, ingredient.unit, displayUnit),
+        formatQuantity
+      );
     } catch (error) {
       console.error('Error calculating quantity:', error);
-      return ingredient.quantity;
+      return ingredient.quantity.toString();
     }
   }
 </script>
