@@ -5,6 +5,7 @@ export enum RecipeTypes {
   Entree = "entree",
   Drink = "drink",
   Dessert = "dessert",
+  Sauce = "sauce",
   Snack = "snack",
   Epicure = "epicure",
 }
