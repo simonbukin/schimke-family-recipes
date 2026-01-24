@@ -1,5 +1,6 @@
 ---
 import "@fontsource/atma/500.css";
+import GroceryList from "../components/GroceryList.svelte";
 interface Props {
   title: string;
 }
@@ -19,6 +20,7 @@ const { title } = Astro.props;
   </head>
   <body>
     <slot />
+    <GroceryList client:load />
   </body>
 </html>
 <style is:global>
@@ -30,5 +32,4 @@ const { title } = Astro.props;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
-
 </style>

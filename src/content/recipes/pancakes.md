@@ -14,7 +14,7 @@ Ingredients:
 - Sugar, 1/4 cup
 - Salt, 1 tsp
 - Eggs, 2
-- Milk, 1 1/2 cups
+- Milk, 3/2 cups
 - Unsalted butter, 4 tbsp
 
 Cookware:

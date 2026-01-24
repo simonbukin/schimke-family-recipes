@@ -11,7 +11,7 @@ Ingredients:
 
 - Medium red cabbage, 1
 - Small red onion, 1
-- Large green onion, 1
+- Large green apple, 1
 - Chopped bacon, 1 lb
 - Brown sugar, 2 tbsp
 - Red wine vinegar, 1/4 cup
