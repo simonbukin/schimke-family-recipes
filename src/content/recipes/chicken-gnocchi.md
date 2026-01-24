@@ -18,7 +18,7 @@ Ingredients:
 - Potato gnocchi, 16 oz
 - Chicken broth, 6 cups
 - Half and half, 2 cups
-- Spinach 1 cup
+- Spinach, 1 cup
 - Thyme, 1 tsp
 - Salt, to taste
 - Pepper, to taste
