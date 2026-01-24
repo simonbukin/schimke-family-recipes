@@ -1,6 +1,7 @@
 ---
+import "../styles/global.css";
 import "@fontsource/atma/500.css";
-import GroceryList from "../components/GroceryList.svelte";
+
 interface Props {
   title: string;
 }
@@ -12,24 +13,18 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content="Schimke Family Recipes - A collection of family recipes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f59e0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="icon" type="image/svg+xml" href="/icons/icon-192.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body>
     <slot />
-    <GroceryList client:load />
   </body>
 </html>
-<style is:global>
-  html {
-    font-family: system-ui;
-    @apply bg-orange-50;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
-</style>
