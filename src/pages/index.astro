@@ -3,85 +3,52 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Search from "../components/Search.svelte";
 
-const buttons = [
-  {
-    name: "breakfast",
-    emoji: "🍳",
-    bg: "bg-emerald-200",
-    border: "border-emerald-400",
-  },
-  {
-    name: "entree",
-    emoji: "🍲",
-    bg: "bg-sky-200",
-    border: "border-sky-400",
-  },
-  {
-    name: "dessert",
-    emoji: "🍰",
-    bg: "bg-violet-200",
-    border: "border-violet-400",
-  },
-  {
-    name: "snack",
-    emoji: "🍿",
-    bg: "bg-pink-200",
-    border: "border-pink-400",
-  },
-  {
-    name: "drink",
-    emoji: "🍹",
-    bg: "bg-lime-200",
-    border: "border-lime-400",
-  },
-  {
-    name: "epicure",
-    emoji: "🍽️",
-    bg: "bg-cyan-200",
-    border: "border-cyan-400",
-  },
-];
-
 const recipes = await getCollection("recipes");
 ---
 
 <Layout title="Schimke Family Recipes">
-  <main class="min-h-screen bg-orange-50">
-    <header class="bg-amber-500 p-3 shadow-md mb-8">
+  <main class="min-h-screen bg-orange-50 flex flex-col">
+    <header class="bg-amber-500 p-4 shadow-md">
       <h1
-        class="max-w-lg sm:max-w-xl mx-auto font-display text-center text-2xl sm:text-3xl text-white"
+        class="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto font-display text-center text-2xl sm:text-3xl md:text-4xl text-white"
       >
         Schimke Family Recipes
       </h1>
     </header>
 
-    <section class="p-4 max-w-lg sm:max-w-xl mx-auto">
-      <ul class="flex flex-row justify-between">
-        {
-          buttons.map((button) => {
-            return (
-              <li>
-                <a
-                  href={`/category/${button.name}`}
-                  class={`${button.bg} ${button.border} p-2 border-4 text-lg rounded-md`}
-                >
-                  {button.emoji}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
+    <section class="flex-1 flex flex-col px-4 pt-8 pb-4 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto w-full">
+      <!-- Categories -->
+      <nav class="grid grid-cols-2 gap-3 mb-auto">
+        <a href="/category/breakfast" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-emerald-500 border-emerald-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍳</span>
+          <span class="text-sm font-semibold text-white">Breakfast</span>
+        </a>
+        <a href="/category/entree" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-sky-500 border-sky-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍲</span>
+          <span class="text-sm font-semibold text-white">Entree</span>
+        </a>
+        <a href="/category/dessert" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-violet-500 border-violet-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍰</span>
+          <span class="text-sm font-semibold text-white">Dessert</span>
+        </a>
+        <a href="/category/snack" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-pink-500 border-pink-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍿</span>
+          <span class="text-sm font-semibold text-white">Snack</span>
+        </a>
+        <a href="/category/drink" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-lime-500 border-lime-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍹</span>
+          <span class="text-sm font-semibold text-white">Drink</span>
+        </a>
+        <a href="/category/epicure" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-cyan-500 border-cyan-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+          <span class="text-xl">🍽️</span>
+          <span class="text-sm font-semibold text-white">Epicure</span>
+        </a>
+      </nav>
 
-      <section class="mt-6">
+      <!-- Search and fun buttons at bottom -->
+      <div class="mt-4">
         <Search client:load searchContent={recipes} />
-      </section>
+      </div>
     </section>
   </main>
 </Layout>
-
-<style>
-  .header {
-    text-shadow: 0px 0px 50px hsl(0deg 0% 0% / 80%);
-  }
-</style>

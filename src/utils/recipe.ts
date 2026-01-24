@@ -1,5 +1,37 @@
 import { convertUnit } from "./units";
 
+/**
+ * Safely parse a fraction or number string without using eval().
+ * Handles: "1/2", "1 1/2" (mixed), "0.5", "3", etc.
+ */
+export function parseFractionOrNumber(str: string): number {
+  if (typeof str === "number") return str;
+  str = str.trim();
+
+  // Handle mixed numbers like "1 1/2"
+  const mixedMatch = str.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedMatch) {
+    const whole = parseInt(mixedMatch[1], 10);
+    const num = parseInt(mixedMatch[2], 10);
+    const denom = parseInt(mixedMatch[3], 10);
+    if (denom === 0) return NaN;
+    return whole + num / denom;
+  }
+
+  // Handle simple fractions like "1/2"
+  const fractionMatch = str.match(/^(\d+)\/(\d+)$/);
+  if (fractionMatch) {
+    const num = parseInt(fractionMatch[1], 10);
+    const denom = parseInt(fractionMatch[2], 10);
+    if (denom === 0) return NaN;
+    return num / denom;
+  }
+
+  // Handle plain numbers (integers and decimals)
+  const num = parseFloat(str);
+  return isNaN(num) ? NaN : num;
+}
+
 export interface Ingredient {
   type: "ingredient";
   name: string;
@@ -44,9 +76,7 @@ export function parseRecipe(lines: string[]): Recipe {
       line = trimLine(line);
       switch (section) {
         case "ingredients":
-          if (line.indexOf("[[") != -1 && line.indexOf("]]") != -1) {
-            console.log("special af");
-            console.log(line);
+          if (line.includes("[[") && line.includes("]]")) {
             const noBrackets = line.substring(2, line.length - 2);
             recipe.ingredients.push({
               type: "link",
@@ -107,7 +137,8 @@ export type Quantity =
 // Helper functions to work with quantities
 export const parseQuantity = (raw: string | number): Quantity => {
   if (raw === "to taste") return { type: "toTaste" };
-  const value = typeof raw === "string" ? eval(raw) : raw;
+  const value =
+    typeof raw === "string" ? parseFractionOrNumber(raw) : raw;
   return { type: "measured", value };
 };
 
@@ -152,7 +183,6 @@ export const formatQuantity = (quantity: Quantity): string => {
   return fraction || quantity.value.toFixed(2).replace(/\.?0+$/, "");
 };
 
-// TODO: test
 export const adjustIngredientQuantity = (
   currentServings: number,
   quantity: string,
@@ -160,15 +190,11 @@ export const adjustIngredientQuantity = (
 ) => {
   const percentAdjusted = currentServings / initialServings;
   const quantityValue = quantity.split(" ")[0];
-  try {
-    const evaledQuantity = eval(quantityValue);
-    if (!isNaN(parseFloat(evaledQuantity))) {
-      const decimal = percentAdjusted * evaledQuantity;
-      const fraction = findMatchingFraction(decimal);
-      return fraction ? fraction : decimal;
-    }
-  } catch (e) {
-    return quantity;
+  const parsedQuantity = parseFractionOrNumber(quantityValue);
+  if (!isNaN(parsedQuantity)) {
+    const decimal = percentAdjusted * parsedQuantity;
+    const fraction = findMatchingFraction(decimal);
+    return fraction ? fraction : decimal;
   }
   return quantityValue;
 };
