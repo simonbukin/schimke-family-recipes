@@ -1,19 +1,10 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2709
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
-{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;}
-\margl1440\margr1440\vieww14580\viewh11760\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
-
-\f0\fs26 \cf2 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 ---\
+---\
 author: Kayla\
 time: 1 hour\
 servings: 5 servings\
 type: entree\
 name: Creamy Chicken Stew\
-emoji: \
+emoji: 🍲\
 ---\
 \
 Ingredients:\
@@ -57,4 +48,3 @@ Steps:\
 - Stir in 1 cup of heavy whipping cream, mix other cup with corn starch and remove lumps before adding to pot\
 - Cut chicken into bite sized pieces and add to pot\
 - Bring stew to boil for 5 minutes, stirring often until thick\
-}
