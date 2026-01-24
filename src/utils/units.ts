@@ -284,18 +284,12 @@ export function convertUnit(
 }
 
 export function getNextUnit(currentUnit: string): string {
-  console.log("currentUnit", currentUnit);
   const normalized = normalizeUnit(currentUnit);
-  console.log("normalized", normalized);
   const unit = units[normalized];
-  console.log("unit", unit);
   if (!unit) return currentUnit;
 
   const possibleUnits = Object.keys(unit.conversions);
-  console.log("possibleUnits", possibleUnits);
   const sortedUnits = possibleUnits.sort();
-  console.log("sortedUnits", sortedUnits);
   const currentIndex = sortedUnits.indexOf(normalized);
-  console.log("currentIndex", currentIndex);
   return sortedUnits[(currentIndex + 1) % sortedUnits.length];
 }
