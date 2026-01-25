@@ -18,7 +18,7 @@ const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
     </a>
 
     <article>
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold capitalize mb-4">
+      <h1 transition:name={`category-${slug}`} class="text-2xl sm:text-3xl md:text-4xl font-bold capitalize mb-4">
         {slug}
       </h1>
 
@@ -47,7 +47,7 @@ const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
                 class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[60px]"
               >
                 <span class="text-2xl sm:text-3xl">{recipe.data.emoji}</span>
-                <span class="text-lg sm:text-xl font-medium">{recipe.data.name}</span>
+                <span transition:name={`recipe-${recipe.slug}`} class="text-lg sm:text-xl font-medium">{recipe.data.name}</span>
               </a>
             </li>
           ))
