@@ -19,27 +19,27 @@ const recipes = await getCollection("recipes");
     <section class="flex-1 flex flex-col px-4 pt-8 pb-4 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto w-full">
       <!-- Categories -->
       <nav class="grid grid-cols-2 gap-3 mb-auto">
-        <a href="/category/breakfast" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-emerald-500 border-emerald-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/breakfast" transition:name="category-breakfast" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-emerald-500 border-emerald-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍳</span>
           <span class="text-sm font-semibold text-white">Breakfast</span>
         </a>
-        <a href="/category/entree" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-sky-500 border-sky-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/entree" transition:name="category-entree" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-sky-500 border-sky-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍲</span>
           <span class="text-sm font-semibold text-white">Entree</span>
         </a>
-        <a href="/category/dessert" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-violet-500 border-violet-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/dessert" transition:name="category-dessert" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-violet-500 border-violet-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍰</span>
           <span class="text-sm font-semibold text-white">Dessert</span>
         </a>
-        <a href="/category/snack" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-pink-500 border-pink-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/snack" transition:name="category-snack" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-pink-500 border-pink-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍿</span>
           <span class="text-sm font-semibold text-white">Snack</span>
         </a>
-        <a href="/category/drink" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-lime-500 border-lime-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/drink" transition:name="category-drink" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-lime-500 border-lime-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍹</span>
           <span class="text-sm font-semibold text-white">Drink</span>
         </a>
-        <a href="/category/epicure" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-cyan-500 border-cyan-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
+        <a href="/category/epicure" transition:name="category-epicure" class="px-3 py-3 border-4 rounded-lg flex items-center gap-2 min-h-[52px] bg-cyan-500 border-cyan-600 hover:scale-[1.02] active:scale-[0.98] transition-transform">
           <span class="text-xl">🍽️</span>
           <span class="text-sm font-semibold text-white">Epicure</span>
         </a>

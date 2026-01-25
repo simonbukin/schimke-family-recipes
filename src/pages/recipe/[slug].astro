@@ -40,7 +40,7 @@ const { ingredients: allIngredients, cookware, steps } = md;
       <!-- Header - full width on all screens -->
       <header class="lg:col-span-3 mb-4 lg:mb-6">
         <h1 class="text-xl sm:text-2xl md:text-3xl">
-          <strong>{name}</strong>
+          <strong transition:name={`recipe-${slug}`}>{name}</strong>
           <span class="text-gray-600 text-base sm:text-lg md:text-xl">by {author}</span>
         </h1>
         <div class="mt-2 flex flex-wrap items-center gap-3 text-gray-600">
