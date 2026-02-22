@@ -1,10 +1,11 @@
 ---
-author: Kayla
+author: Nichole
 time: 1 hour
 servings: 5 servings
 type: entree
 name: Creamy Chicken Stew
 emoji: 🍲
+link: https://thesaltymarshmallow.com/creamy-chicken-stew/
 ---
 
 Ingredients:

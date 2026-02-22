@@ -21,7 +21,7 @@ if (!recipe) {
   return;
 }
 
-const { name, author, time, servings } = recipe.data;
+const { name, author, link, time, servings } = recipe.data;
 const servingsNum = parseInt(servings?.split(" ")[0] || "0");
 const md = parseRecipe(recipe.body.split("\n"));
 const { ingredients: allIngredients, cookware, steps } = md;
@@ -41,7 +41,15 @@ const { ingredients: allIngredients, cookware, steps } = md;
       <header class="lg:col-span-3 mb-4 lg:mb-6">
         <h1 class="text-xl sm:text-2xl md:text-3xl">
           <strong transition:name={`recipe-${slug}`}>{name}</strong>
-          <span class="text-gray-600 text-base sm:text-lg md:text-xl">by {author}</span>
+          <span class="text-gray-600 text-base sm:text-lg md:text-xl">
+            {author && link ? (
+              <>by <a href={link} target="_blank" rel="noopener noreferrer" class="text-orange-700 hover:text-orange-800 underline">{author}</a></>
+            ) : author ? (
+              <>by {author}</>
+            ) : link ? (
+              <a href={link} target="_blank" rel="noopener noreferrer" class="text-orange-700 hover:text-orange-800 underline">Original Recipe</a>
+            ) : null}
+          </span>
         </h1>
         <div class="mt-2 flex flex-wrap items-center gap-3 text-gray-600">
           <span class="flex items-center gap-1">
@@ -56,7 +64,9 @@ const { ingredients: allIngredients, cookware, steps } = md;
       <!-- Sidebar - on desktop, stays on left -->
       <aside class="lg:col-span-1 lg:sticky lg:top-4 lg:self-start">
         <Servings servingsNum={servingsNum} client:load />
-        <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte" />
+        <div class="lg:hidden">
+          <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte" />
+        </div>
 
         {
           cookware && cookware.length > 0 && (

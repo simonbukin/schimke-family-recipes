@@ -1,10 +1,11 @@
 ---
-author: Kayla
+author: Tiffany
 time: 1 hour
 servings: 4 servings
 type: entree
 name: Chicken Gnocchi Soup
 emoji: 🍲
+link: https://www.lecremedelacrumb.com/olive-garden-chicken-gnocchi-soup/
 ---
 
 Ingredients:

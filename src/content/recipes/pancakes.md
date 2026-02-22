@@ -5,6 +5,7 @@ servings: 16 pancakes
 type: breakfast
 name: Pancakes
 emoji: 🥞
+link: https://www.onceuponachef.com/recipes/best-pancake-recipe.html
 ---
 
 Ingredients:

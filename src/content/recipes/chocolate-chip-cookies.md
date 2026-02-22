@@ -4,7 +4,7 @@ time: 45 minutes
 servings: 16 cookies
 type: dessert
 name: Chocolate Chip Cookies
-source: https://caitsplate.com/cooks-illustrated-ultimate-chocolate-chip-cookies/
+link: https://caitsplate.com/cooks-illustrated-ultimate-chocolate-chip-cookies/
 emoji: 🍪
 ---
 

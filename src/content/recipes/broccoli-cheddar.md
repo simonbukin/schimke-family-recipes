@@ -1,10 +1,11 @@
 ---
-author: Kayla
+author: Layla Atik
 time: 1 hour
 servings: 4 servings
 type: entree
 name: Broccoli Cheddar Soup
 emoji: 🍲
+link: https://gimmedelicious.com/broccoli-cheddar-soup/
 ---
 
 Ingredients:
@@ -32,6 +33,7 @@ Steps:
 - Dice onion and chop broccoli
 - Melt butter in the pot over medium heat
 - Add onions and saute until translucent
+- Add garlic and cook until fragrant
 - Add flour and stir until it turns golden 
 - Add chicken broth, broccoli, carrots, and seasoning and bring to a boil
 - Reduce heat and simmer for 15 minutes

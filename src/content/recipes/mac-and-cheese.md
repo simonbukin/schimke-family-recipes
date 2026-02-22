@@ -5,7 +5,7 @@ servings: "8"
 type: entree
 name: Mac and Cheese
 emoji: 🧀
-source: https://www.reddit.com/r/Cooking/comments/rs6gdf/what_is_your_best_baked_mac_n_cheese_recipe/
+link: https://www.reddit.com/r/Cooking/comments/rs6gdf/what_is_your_best_baked_mac_n_cheese_recipe/
 ---
 
 Cookware:

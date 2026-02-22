@@ -5,6 +5,7 @@ servings: 4 servings
 type: entree
 name: Avocado Pesto Pasta
 emoji: 🥑 
+link: https://frommybowl.com/avocado-pesto-pasta/
 ---
 
 Ingredients:
