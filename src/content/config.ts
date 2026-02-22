@@ -18,7 +18,7 @@ const recipeSchema = z
     servings: z.string().optional(),
     type: z.nativeEnum(RecipeTypes),
     name: z.string(),
-    emoji: z.string().emoji(),
+    emoji: z.string().min(1),
   })
   .refine((data) => data.author || data.link, {
     message: "At least one of 'author' or 'link' must be provided",

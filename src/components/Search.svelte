@@ -2,8 +2,8 @@
   import { pickRandom } from "../utils/generic";
   import { convertDurationToMinutes } from "../utils/time";
   import type { Recipe } from '../content/config';
-  import { fly, fade } from "svelte/transition";
-  import { flip } from "svelte/animate";
+  import { fade } from "svelte/transition";
+  import Fuse from "fuse.js";
 
   type RecipeEntry = {
     id: string;
@@ -15,31 +15,32 @@
   interface Props {
     searchContent?: RecipeEntry[];
     funMode?: boolean;
+    children?: import('svelte').Snippet;
   }
 
-  let { searchContent = [], funMode = false }: Props = $props();
+  let { searchContent = [], funMode = false, children }: Props = $props();
 
   let searchValue = $state('');
   let audio = $state<HTMLAudioElement | null>(null);
   let inputFocused = $state(false);
 
+  const fuse = new Fuse(searchContent, {
+    keys: [
+      { name: "data.name", weight: 1.0 },
+      { name: "data.author", weight: 0.7 },
+      { name: "body", weight: 0.3 },
+    ],
+    threshold: 0.3,
+  });
+
   let filteredRecipes = $derived(
-    searchContent
-      .filter((recipe) => filterFunc(searchValue, recipe))
-      .sort((a, b) => {
-        const aMinutes = convertDurationToMinutes(a.data.time);
-        const bMinutes = convertDurationToMinutes(b.data.time);
-        return aMinutes - bMinutes;
-      })
+    searchValue.length > 0
+      ? fuse.search(searchValue).map((result) => result.item)
+      : []
   );
 
   let isSearching = $derived(searchValue.length > 0);
   let hasResults = $derived(filteredRecipes.length > 0);
-
-  function filterFunc(value: string, recipe: RecipeEntry): boolean {
-    const search = value.toLowerCase();
-    return JSON.stringify(recipe).toLowerCase().includes(search);
-  }
 
   $effect(() => {
     const audioElement = document.getElementById('audio') as HTMLAudioElement;
@@ -68,31 +69,28 @@
   }
 </script>
 
-<div class="search-container">
-  <!-- Search input with results overlay -->
-  <div class="search-wrapper">
-    <!-- Results appear above -->
-    {#if isSearching}
-      <div class="results-area">
-        {#if hasResults}
-          {#each filteredRecipes.slice(0, 5) as recipe (recipe.id)}
-            <a
-              href={`/recipe/${recipe.slug}`}
-              class="result-item"
-              in:fly={{ y: 8, duration: 150 }}
-              out:fade={{ duration: 100 }}
-            >
-              <span class="result-time">{convertDurationToMinutes(recipe.data.time)}m</span>
-              <span class="result-emoji">{recipe.data.emoji}</span>
-              <span class="result-name">{recipe.data.name}</span>
-            </a>
-          {/each}
-        {:else}
-          <p class="no-results" in:fade={{ duration: 150 }}>No recipes found</p>
-        {/if}
-      </div>
-    {/if}
+<div class="search-layout">
+  <!-- Top: categories fade out on search -->
+  <div class="categories" class:categories-hidden={isSearching}>
+    {@render children?.()}
+  </div>
 
+  <!-- Middle: results stack from bottom of gap, right above the search bar -->
+  <div class="results-gap">
+    {#each filteredRecipes.slice(0, 5) as recipe (recipe.id)}
+      <a href={`/recipe/${recipe.slug}`} class="result-item">
+        <span class="result-time">{convertDurationToMinutes(recipe.data.time)}m</span>
+        <span class="result-emoji">{recipe.data.emoji}</span>
+        <span class="result-name">{recipe.data.name}</span>
+      </a>
+    {/each}
+    {#if isSearching && !hasResults}
+      <p class="no-results">No recipes found</p>
+    {/if}
+  </div>
+
+  <!-- Bottom: search bar + fun buttons -->
+  <div class="bottom">
     <div class="search-input-wrapper">
       <input
         class="search-input"
@@ -115,30 +113,49 @@
         </button>
       {/if}
     </div>
-  </div>
 
-  <!-- Fun buttons -->
-  <div class="fun-buttons">
-    <button onclick={playAudio} class="btn-poggers">
-      I'm feeling poggers
-    </button>
-    <a href={`/recipe/${pickRandom(searchContent)?.slug ?? ''}`} class="btn-hungry">
-      I'm hungry
-    </a>
+    <div class="fun-buttons">
+      <button onclick={playAudio} class="btn-poggers">
+        I'm feeling poggers
+      </button>
+      <a href={`/recipe/${pickRandom(searchContent)?.slug ?? ''}`} class="btn-hungry">
+        I'm hungry
+      </a>
+    </div>
   </div>
 </div>
 
 <audio id="audio" src="https://www.myinstants.com/media/sounds/taco-bell-bong-sfx.mp3"></audio>
 
 <style>
-  .search-container {
+  .search-layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .categories {
+    transition: opacity 0.2s ease;
+  }
+
+  .categories-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Fills the gap between categories and bottom; results align to the end */
+  .results-gap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.5rem 0;
+  }
+
+  .bottom {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-  }
-
-  .search-wrapper {
-    position: relative;
   }
 
   .search-input-wrapper {
@@ -191,14 +208,6 @@
   .clear-btn svg {
     width: 20px;
     height: 20px;
-  }
-
-  .results-area {
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    right: 0;
-    padding-bottom: 0.5rem;
   }
 
   .result-item {
