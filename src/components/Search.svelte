@@ -237,7 +237,7 @@
     font-weight: 600;
     color: #f97316;
     font-size: 0.875rem;
-    min-width: 2.5rem;
+    min-width: 3.25rem;
   }
 
   .no-results {
