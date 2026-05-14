@@ -21,10 +21,10 @@
     "fuse.js": "^7.1.0",
     "svelte": "^5.0.0",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.7.0",
-    "vitest": "^3.0.0"
+    "typescript": "^5.7.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0"
+    "@types/node": "^22.0.0",
+    "vitest": "^4.0.0"
   }
 }

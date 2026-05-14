@@ -1,14 +1,13 @@
 <script lang="ts">
   import { pickRandom } from "../utils/generic";
   import { convertDurationToMinutes } from "../utils/time";
-  import type { Recipe } from '../content/config';
+  import type { Recipe } from '../content.config';
   import { fade } from "svelte/transition";
   import Fuse from "fuse.js";
 
   type RecipeEntry = {
     id: string;
-    slug: string;
-    body: string;
+    body?: string;
     data: Recipe;
   };
 
@@ -78,7 +77,7 @@
   <!-- Middle: results stack from bottom of gap, right above the search bar -->
   <div class="results-gap">
     {#each filteredRecipes.slice(0, 5) as recipe (recipe.id)}
-      <a href={`/recipe/${recipe.slug}`} class="result-item">
+      <a href={`/recipe/${recipe.id}`} class="result-item">
         <span class="result-time">{convertDurationToMinutes(recipe.data.time)}m</span>
         <span class="result-emoji">{recipe.data.emoji}</span>
         <span class="result-name">{recipe.data.name}</span>
@@ -118,7 +117,7 @@
       <button onclick={playAudio} class="btn-poggers">
         I'm feeling poggers
       </button>
-      <a href={`/recipe/${pickRandom(searchContent)?.slug ?? ''}`} class="btn-hungry">
+      <a href={`/recipe/${pickRandom(searchContent)?.id ?? ''}`} class="btn-hungry">
         I'm hungry
       </a>
     </div>
