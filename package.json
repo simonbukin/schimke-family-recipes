@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.56.0"
   }
 }
