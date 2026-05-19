@@ -1,4 +1,5 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 export enum RecipeTypes {
   Breakfast = "breakfast",
@@ -24,10 +25,18 @@ const recipeSchema = z
     message: "At least one of 'author' or 'link' must be provided",
   });
 
-export type Recipe = z.infer<typeof recipeSchema>;
+export type Recipe = {
+  author?: string;
+  link?: string;
+  time: string;
+  servings?: string;
+  type: RecipeTypes;
+  name: string;
+  emoji: string;
+};
 
 const recipesCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/recipes" }),
   schema: recipeSchema,
 });
 

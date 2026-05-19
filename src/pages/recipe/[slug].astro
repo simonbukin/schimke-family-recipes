@@ -23,7 +23,7 @@ if (!recipe) {
 
 const { name, author, link, time, servings } = recipe.data;
 const servingsNum = parseInt(servings?.split(" ")[0] || "0");
-const md = parseRecipe(recipe.body.split("\n"));
+const md = parseRecipe((recipe.body ?? "").split("\n"));
 const { ingredients: allIngredients, cookware, steps } = md;
 ---
 
