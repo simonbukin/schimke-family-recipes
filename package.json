@@ -19,7 +19,6 @@
     "astro": "6.3.2",
     "date-fns": "^4.0.0",
     "fuse.js": "^7.1.0",
-    "path-to-regexp-updated": "npm:path-to-regexp@6.3.0",
     "svelte": "^5.0.0",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.7.0"
@@ -27,5 +26,9 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "vitest": "^4.0.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.56.0",
+    "lightningcss-linux-x64-gnu": "1.30.2"
   }
 }
