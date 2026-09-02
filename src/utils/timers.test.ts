@@ -19,6 +19,25 @@ describe("findDurations", () => {
     expect(secondsFor("Rest 2–3 min")).toEqual([180]);
   });
 
+  it("reads a range written in words", () => {
+    // Real recipes phrase it both ways: "2-3 minutes" and "55 to 65 minutes".
+    expect(secondsFor("Bake for 55 to 65 minutes")).toEqual([3900]);
+    expect(secondsFor("Beat until light, 3 to 4 minutes")).toEqual([240]);
+    expect(secondsFor("Rest 1 or 2 minutes")).toEqual([120]);
+  });
+
+  it("keeps the whole range in the label", () => {
+    // Labelling this "65 minutes" would look like the range had been mangled.
+    expect(findDurations("Bake for 55 to 65 minutes")[0].text).toBe(
+      "55 to 65 minutes"
+    );
+  });
+
+  it("does not treat a bare 'to' as a duration", () => {
+    expect(secondsFor("Heat the oven to 400 F")).toEqual([]);
+    expect(secondsFor("Add 2 to 3 cups of flour")).toEqual([]);
+  });
+
   it("handles mixed fractions and decimals", () => {
     expect(secondsFor("Rise for 1 1/2 hours")).toEqual([5400]);
     expect(secondsFor("Wait 2.5 minutes")).toEqual([150]);

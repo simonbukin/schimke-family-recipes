@@ -27,13 +27,21 @@ const UNIT_SECONDS: Record<string, number> = {
   h: 3600,
 };
 
+/** Ranges are written both ways: "2-3 minutes" and "55 to 65 minutes". */
+const RANGE_SEPARATOR = String.raw`(?:\s*[-–—]\s*|\s+(?:to|or)\s+)`;
+
 /*
- * "20 minutes", "1 1/2 hours", "2-3 min", "30 secs".
- * The number may be a range. A trailing "." is only consumed as part of an
- * abbreviation ("20 min."), never off the end of a sentence ("20 minutes.").
+ * "20 minutes", "1 1/2 hours", "2-3 min", "55 to 65 minutes", "30 secs".
+ * A trailing "." is only consumed as part of an abbreviation ("20 min."),
+ * never off the end of a sentence ("20 minutes.").
  */
-const DURATION =
-  /(\d+(?:\s+\d+\/\d+)?(?:\.\d+)?(?:\s*[-–—]\s*\d+(?:\.\d+)?)?)\s*(seconds?\b|secs?\b\.?|minutes?\b|mins?\b\.?|hours?\b|hrs?\b\.?|[hms]\b)/gi;
+const DURATION = new RegExp(
+  String.raw`(\d+(?:\s+\d+\/\d+)?(?:\.\d+)?(?:` +
+    RANGE_SEPARATOR +
+    String.raw`\d+(?:\.\d+)?)?)\s*` +
+    String.raw`(seconds?\b|secs?\b\.?|minutes?\b|mins?\b\.?|hours?\b|hrs?\b\.?|[hms]\b)`,
+  "gi"
+);
 
 function normalizeUnit(raw: string): number | null {
   // Strip the abbreviation's period before the plural "s": "mins." -> "min".
@@ -47,7 +55,9 @@ function normalizeUnit(raw: string): number | null {
 function parseAmount(raw: string): number {
   const text = raw.trim();
 
-  const range = text.match(/^([\d.]+)\s*[-–—]\s*([\d.]+)$/);
+  const range = text.match(
+    /^([\d.]+)(?:\s*[-–—]\s*|\s+(?:to|or)\s+)([\d.]+)$/i
+  );
   if (range) return Number(range[2]);
 
   const mixed = text.match(/^(\d+)\s+(\d+)\/(\d+)$/);
