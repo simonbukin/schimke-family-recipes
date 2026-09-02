@@ -24,6 +24,86 @@ export function getRepoConfig(): RepoConfig {
   return { repo: GITHUB_REPO, token: GITHUB_TOKEN, branch: GITHUB_BRANCH };
 }
 
+function headers(config: RepoConfig): HeadersInit {
+  return {
+    Authorization: `Bearer ${config.token}`,
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json",
+  };
+}
+
+export interface GitIdentity {
+  name: string;
+  email: string;
+}
+
+/**
+ * Build the identity from a GitHub user payload.
+ *
+ * The address must be the modern "<id>+<login>@users.noreply.github.com" form.
+ * The legacy "<login>@users.noreply.github.com" form resolves to whoever owns
+ * that username today, which is how a login label like "simon" ends up
+ * crediting a stranger.
+ */
+export function identityFromUser(user: {
+  id: number;
+  login: string;
+  name?: string | null;
+}): GitIdentity {
+  return {
+    name: user.name || user.login,
+    email: `${user.id}+${user.login}@users.noreply.github.com`,
+  };
+}
+
+const identityCache = new Map<string, GitIdentity | null>();
+
+/**
+ * Resolve an editor's GitHub username to the identity GitHub links commits by.
+ *
+ * This must never be guessed. Constructing "<name>@users.noreply.github.com"
+ * from the login looks right and is not: that is the *legacy* noreply form, and
+ * it belongs to whoever actually owns that username. Attributing family recipe
+ * edits to an unrelated stranger's GitHub account is the failure mode.
+ *
+ * An unresolvable username yields null, and the caller omits the author so the
+ * commit falls back to the token's owner -- a real identity either way.
+ */
+export async function resolveEditorIdentity(
+  login: string
+): Promise<GitIdentity | null> {
+  const cached = identityCache.get(login);
+  if (cached !== undefined) return cached;
+
+  let identity: GitIdentity | null = null;
+  try {
+    const config = getRepoConfig();
+    const response = await fetch(`${API}/users/${encodeURIComponent(login)}`, {
+      headers: headers(config),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (response.ok) {
+      const user = (await response.json()) as {
+        id: number;
+        login: string;
+        name: string | null;
+      };
+      identity = identityFromUser(user);
+    } else {
+      console.error(
+        `EDITORS name "${login}" is not a GitHub username (${response.status}).`,
+        "Commits will be attributed to the token owner."
+      );
+    }
+  } catch (error) {
+    console.error(`Could not resolve GitHub identity for "${login}"`, error);
+  }
+
+  identityCache.set(login, identity);
+  return identity;
+}
+
 async function request(
   config: RepoConfig,
   path: string,
@@ -34,13 +114,7 @@ async function request(
     // A hung GitHub request would otherwise become a function timeout, which
     // the UI can't turn into a useful message.
     signal: AbortSignal.timeout(10_000),
-    headers: {
-      Authorization: `Bearer ${config.token}`,
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-      "Content-Type": "application/json",
-      ...init.headers,
-    },
+    headers: { ...headers(config), ...init.headers },
   });
 }
 
@@ -88,6 +162,7 @@ export async function commitRecipe(options: {
   sha?: string | null;
 }): Promise<void> {
   const config = getRepoConfig();
+  const identity = await resolveEditorIdentity(options.editor);
   const response = await request(config, contentPath(options.slug), {
     method: "PUT",
     body: JSON.stringify({
@@ -95,10 +170,8 @@ export async function commitRecipe(options: {
       content: toBase64(options.contents),
       branch: config.branch,
       sha: options.sha ?? undefined,
-      committer: {
-        name: options.editor,
-        email: `${options.editor}@users.noreply.github.com`,
-      },
+      author: identity ?? undefined,
+      committer: identity ?? undefined,
     }),
   });
 
@@ -114,16 +187,15 @@ export async function deleteRecipe(options: {
   editor: string;
 }): Promise<void> {
   const config = getRepoConfig();
+  const identity = await resolveEditorIdentity(options.editor);
   const response = await request(config, contentPath(options.slug), {
     method: "DELETE",
     body: JSON.stringify({
       message: options.message,
       sha: options.sha,
       branch: config.branch,
-      committer: {
-        name: options.editor,
-        email: `${options.editor}@users.noreply.github.com`,
-      },
+      author: identity ?? undefined,
+      committer: identity ?? undefined,
     }),
   });
 

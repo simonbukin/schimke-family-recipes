@@ -21,7 +21,7 @@ Four environment variables, set in the Vercel project settings (and in a local
 | Variable | Purpose |
 | --- | --- |
 | `AUTH_SECRET` | Signs the editor session cookie. Any long random string — `openssl rand -base64 32`. Changing it signs everyone out. |
-| `EDITORS` | Who may edit, as `name:password` pairs: `simon:xxx,kayla:yyy`. The name becomes the commit author. |
+| `EDITORS` | Who may edit, as `github-username:password` pairs: `simonbukin:xxx,kschimke:yyy`. Must be real GitHub usernames &mdash; they are resolved to the address GitHub attributes commits to. |
 | `GITHUB_TOKEN` | A [fine-grained personal access token](https://github.com/settings/personal-access-tokens) scoped to **this repository only**, with **Contents: Read and write**. Nothing else. |
 | `GITHUB_REPO` | Defaults to `simonbukin/schimke-family-recipes`. |
 
