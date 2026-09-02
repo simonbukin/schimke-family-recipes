@@ -1,21 +1,18 @@
 ---
-author: Morgan Sanchez
-time: 5 minutes
-servings: 1 bag
-type: snack
-name: A Bag of Takis
-emoji: 🌶️
+name: "A Bag of Takis"
+emoji: "🌶️"
+type: "snack"
+author: "Morgan Sanchez"
+time: "5 minutes"
+servings: 1
+ingredients:
+  - name: "Takis"
+    qty: "1"
+    unit: "bag"
+cookware:
+  - name: "Chopsticks"
+    qty: "1"
+steps:
+  - "Go to your local grocery store and purchase a bag of Takis."
+  - "Eat the bag of Takis in one sitting."
 ---
-
-Ingredients:
-
-- Takis, 1 bag
-
-Cookware:
-
-- Chopsticks, 1 pair
-
-Steps:
-
-- Go to your local grocery store and purchase a bag of Takis.
-- Eat the bag of Takis in one sitting.

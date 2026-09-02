@@ -1,43 +1,62 @@
 ---
-author: Tiffany
-time: 1 hour
-servings: 4 servings
-type: entree
-name: Chicken Gnocchi Soup
-emoji: 🍲
-link: https://www.lecremedelacrumb.com/olive-garden-chicken-gnocchi-soup/
+name: "Chicken Gnocchi Soup"
+emoji: "🍲"
+type: "entree"
+author: "Tiffany"
+link: "https://www.lecremedelacrumb.com/olive-garden-chicken-gnocchi-soup/"
+time: "1 hour"
+servings: 4
+ingredients:
+  - name: "Chicken breast"
+    qty: "3"
+    unit: "or 4"
+  - name: "Olive oil"
+    qty: "2"
+    unit: "tbsp"
+  - name: "Celery"
+    qty: "2"
+    unit: "ribs"
+  - name: "Shredded carrots"
+    qty: "1/2"
+    unit: "cup"
+  - name: "White onion"
+    qty: "1/2"
+  - name: "Garlic cloves (minced)"
+    qty: "3"
+  - name: "Potato gnocchi"
+    qty: "16"
+    unit: "oz"
+  - name: "Chicken broth"
+    qty: "6"
+    unit: "cups"
+  - name: "Half and half"
+    qty: "2"
+    unit: "cups"
+  - name: "Spinach"
+    qty: "1"
+    unit: "cup"
+  - name: "Thyme"
+    qty: "1"
+    unit: "tsp"
+  - name: "Salt"
+    qty: "to taste"
+  - name: "Pepper"
+    qty: "to taste"
+cookware:
+  - name: "Pot"
+    qty: "1"
+  - name: "Sauce pan"
+    qty: "1"
+  - name: "Wooden spoon"
+    qty: "1"
+steps:
+  - "Add olive oil to the pan, cook chicken breasts over medium heat, season with salt and pepper"
+  - "Chop celery into bite sized pieces as desired and dice onion"
+  - "Add olive oil to the pot over medium heat"
+  - "Add celery, carrots, and onion to pot and saute until onion is translucent"
+  - "Mince garlic into pot and cook until fragrant"
+  - "Cut chicken into bite sized pieces"
+  - "Add chicken broth, chicken and seasonings to pot and bring to a boil"
+  - "Stir in gnocchi and simmer until gnocchi is cooked through, about 10 minutes"
+  - "Stir in half and half and spinach and simmer until spinach is tender"
 ---
-
-Ingredients:
-
-- Chicken breast, 3 or 4
-- Olive oil, 2 tbsp
-- Celery, 2 ribs
-- Shredded carrots, 1/2 cup
-- White onion, 1/2
-- Garlic cloves (minced), 3
-- Potato gnocchi, 16 oz
-- Chicken broth, 6 cups
-- Half and half, 2 cups
-- Spinach, 1 cup
-- Thyme, 1 tsp
-- Salt, to taste
-- Pepper, to taste
-
-Cookware:
-
-- Pot, 1
-- Sauce pan, 1
-- Wooden spoon, 1
-
-Steps:
-
-- Add olive oil to the pan, cook chicken breasts over medium heat, season with salt and pepper
-- Chop celery into bite sized pieces as desired and dice onion
-- Add olive oil to the pot over medium heat
-- Add celery, carrots, and onion to pot and saute until onion is translucent
-- Mince garlic into pot and cook until fragrant
-- Cut chicken into bite sized pieces
-- Add chicken broth, chicken and seasonings to pot and bring to a boil
-- Stir in gnocchi and simmer until gnocchi is cooked through, about 10 minutes
-- Stir in half and half and spinach and simmer until spinach is tender

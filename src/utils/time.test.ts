@@ -1,17 +1,21 @@
-import { describe, expect, it } from "vitest";
+import { describe, it, expect } from "vitest";
 import { convertDurationToMinutes } from "./time";
 
 describe("convertDurationToMinutes", () => {
-  it("should convert a single number to minutes", () => {
-    expect(convertDurationToMinutes("5")).toBe(5);
+  it("reads minutes", () => {
+    expect(convertDurationToMinutes("30 minutes")).toBe(30);
+    expect(convertDurationToMinutes("5 minutes")).toBe(5);
   });
 
-  it("should convert a single number followed by hour(s) unit to minutes", () => {
-    expect(convertDurationToMinutes("5 hours")).toBe(300);
+  it("converts hours", () => {
     expect(convertDurationToMinutes("2 hours")).toBe(120);
+    expect(convertDurationToMinutes("1 hour")).toBe(60);
   });
 
-  it("should throw an error for invalid duration string", () => {
-    expect(() => convertDurationToMinutes("invalid duration")).toThrowError();
+  it("returns null for free text rather than throwing", () => {
+    // Reachable from the editor, where "time" is an unconstrained text field.
+    expect(convertDurationToMinutes("half an hour")).toBeNull();
+    expect(convertDurationToMinutes("")).toBeNull();
+    expect(convertDurationToMinutes("overnight")).toBeNull();
   });
 });

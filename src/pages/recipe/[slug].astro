@@ -1,7 +1,6 @@
 ---
-export const prerender = false;
-import { getEntry } from "astro:content";
-import { parseRecipe } from "../../utils/recipe";
+import { getCollection, getEntry } from "astro:content";
+import { toViewIngredients } from "../../utils/recipe";
 import Layout from "../../layouts/Layout.astro";
 import WakeLockToggle from "../../components/WakeLockToggle.svelte";
 import Servings from "../../components/Servings.svelte";
@@ -9,22 +8,21 @@ import Ingredients from "../../components/Ingredients.svelte";
 import Steps from "../../components/Steps.svelte";
 
 const { slug } = Astro.params;
+const recipe = slug ? await getEntry("recipes", slug) : undefined;
 
-if (!slug) {
-  Astro.redirect("/");
-  return;
-}
-const recipe = await getEntry("recipes", slug);
+if (!slug || !recipe) return Astro.rewrite("/404");
 
-if (!recipe) {
-  Astro.redirect("/");
-  return;
-}
+const { name, author, link, time, servings, cookware, steps } = recipe.data;
 
-const { name, author, link, time, servings } = recipe.data;
-const servingsNum = parseInt(servings?.split(" ")[0] || "0");
-const md = parseRecipe((recipe.body ?? "").split("\n"));
-const { ingredients: allIngredients, cookware, steps } = md;
+// Recipe links store only a slug, so resolve their display names from the
+// collection rather than duplicating the name on disk.
+const names = new Map(
+  (await getCollection("recipes")).map((entry) => [entry.id, entry.data.name])
+);
+const allIngredients = toViewIngredients(recipe.data.ingredients, (target) =>
+  names.get(target)
+);
+const canScale = typeof servings === "number" && servings > 0;
 ---
 
 <Layout title=`${name}`>
@@ -58,12 +56,20 @@ const { ingredients: allIngredients, cookware, steps } = md;
             </svg>
             {time}
           </span>
+          {servings && <span>{servings} servings</span>}
+          {
+            Astro.locals.editor && (
+              <a href={`/admin/${slug}`} class="text-orange-700 hover:text-orange-800 underline">
+                Edit
+              </a>
+            )
+          }
         </div>
       </header>
 
       <!-- Sidebar - on desktop, stays on left -->
       <aside class="lg:col-span-1 lg:sticky lg:top-4 lg:self-start">
-        <Servings servingsNum={servingsNum} client:load />
+        {canScale && <Servings servingsNum={servings} client:load />}
         <div class="lg:hidden">
           <WakeLockToggle toggleLabel="Keep Awake" client:only="svelte" />
         </div>
@@ -75,8 +81,8 @@ const { ingredients: allIngredients, cookware, steps } = md;
               <ul class="space-y-1">
                 {cookware.map((cw) => (
                   <li class="flex items-center gap-2">
-                    <span class="font-bold text-orange-600">{cw.quantity}</span>
-                    <span>{`${cw.name}${+cw.quantity > 1 ? "s" : ""}`}</span>
+                    <span class="font-bold text-orange-600">{cw.qty}</span>
+                    <span>{`${cw.name}${Number(cw.qty) > 1 ? "s" : ""}`}</span>
                   </li>
                 ))}
               </ul>
@@ -87,7 +93,7 @@ const { ingredients: allIngredients, cookware, steps } = md;
         <div class="mt-4">
           <Ingredients
             client:load
-            initialServings={servingsNum}
+            initialServings={canScale ? servings : 1}
             ingredients={allIngredients}
           />
         </div>

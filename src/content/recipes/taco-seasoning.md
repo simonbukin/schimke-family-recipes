@@ -1,23 +1,35 @@
 ---
-author: Simon Bukin
-time: 5 minutes
-type: entree
-servings: "2"
-name: Simon's Taco Seasoning
-emoji: 🌮
+name: "Simon's Taco Seasoning"
+emoji: "🌮"
+type: "entree"
+author: "Simon Bukin"
+time: "5 minutes"
+servings: 2
+ingredients:
+  - name: "Chili powder"
+    qty: "1"
+    unit: "tbsp"
+  - name: "Onion powder"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Garlic powder"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Crushed red pepper flakes"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Dried oregano"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Paprika"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Sea salt"
+    qty: "1"
+    unit: "tsp"
+  - name: "Black pepper"
+    qty: "1"
+    unit: "tsp"
+steps:
+  - "Mix it all together."
 ---
-
-Ingredients:
-
-- Chili powder, 1 tbsp
-- Onion powder, 1/4 tsp
-- Garlic powder, 1/2 tsp
-- Crushed red pepper flakes, 1/4 tsp
-- Dried oregano, 1/4 tsp
-- Paprika, 1/2 tsp
-- Sea salt, 1 tsp
-- Black pepper, 1 tsp
-
-Steps:
-
-- Mix it all together.

@@ -2,8 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Search from "../components/Search.svelte";
+import { toSearchEntry } from "../utils/search";
 
-const recipes = await getCollection("recipes");
+const recipes = (await getCollection("recipes")).map(toSearchEntry);
 ---
 
 <Layout title="Schimke Family Recipes">
@@ -14,6 +15,19 @@ const recipes = await getCollection("recipes");
       >
         Schimke Family Recipes
       </h1>
+      <p class="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto mt-1 text-center">
+        {
+          Astro.locals.editor ? (
+            <a href="/admin" class="text-sm text-white/90 underline underline-offset-2 hover:text-white">
+              Manage recipes
+            </a>
+          ) : (
+            <a href="/login" class="text-sm text-white/70 underline underline-offset-2 hover:text-white">
+              Sign in to edit
+            </a>
+          )
+        }
+      </p>
     </header>
 
     <section class="flex-1 flex flex-col px-4 pt-8 pb-4 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto w-full">

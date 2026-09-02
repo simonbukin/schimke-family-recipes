@@ -1,32 +1,39 @@
 ---
-author: Reddit 
-time: 30 minutes 
-servings: "2"
-type: snack 
-name: Garlic Bread 
-emoji: 🧄 
+name: "Garlic Bread"
+emoji: "🧄"
+type: "snack"
+author: "Reddit"
+time: "30 minutes"
+servings: 2
+ingredients:
+  - name: "Parsley"
+    qty: "1"
+    unit: "tsp"
+  - name: "Thyme"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Butter"
+    qty: "1"
+    unit: "stick"
+  - name: "French baguette"
+    qty: "1"
+    unit: "loaf"
+  - name: "Garlic"
+    qty: "4"
+    unit: "cloves"
+  - name: "Parmesan"
+    qty: "to taste"
+cookware:
+  - name: "8x4 cooking pan"
+    qty: "1"
+  - name: "Butter tray"
+    qty: "1"
+steps:
+  - "Preheat oven to 350°."
+  - "Cut baguette in half, and then sandwich cut both halves."
+  - "Melt butter stick."
+  - "Mix in parsley, thyme, and minced garlic. Stir!"
+  - "Lather bread slabs with butter mixture."
+  - "Top with parmesan."
+  - "Broil (for 2-3 minutes) or bake (for 10-15 minutes), until bread is toasted."
 ---
-
-Cookware:
-
-- 8x4 cooking pan, 1
-- Butter tray, 1
-
-Ingredients:
-
-- Parsley, 1 tsp
-- Thyme, 1/2 tsp
-- Butter, 1 stick
-- French baguette, 1 loaf
-- Garlic, 4 cloves
-- Parmesan, to taste
-
-Steps:
-
-- Preheat oven to 350°.
-- Cut baguette in half, and then sandwich cut both halves.
-- Melt butter stick.
-- Mix in parsley, thyme, and minced garlic. Stir!
-- Lather bread slabs with butter mixture.
-- Top with parmesan.
-- Broil (for 2-3 minutes) or bake (for 10-15 minutes), until bread is toasted.

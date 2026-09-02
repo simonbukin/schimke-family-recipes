@@ -1,29 +1,38 @@
 ---
-author: Amanda Paa
-time: 5 minutes
-servings: 1 cup
-type: sauce 
-name: Vegan Maple Dressing
-emoji: 🥗
+name: "Vegan Maple Dressing"
+emoji: "🥗"
+type: "sauce"
+author: "Amanda Paa"
+time: "5 minutes"
+servings: 1
+ingredients:
+  - name: "Apple Cider Vinegar"
+    qty: "2.5"
+    unit: "tbsp"
+  - name: "Garlic"
+    qty: "1"
+    unit: "clove"
+  - name: "Soy Sauce"
+    qty: "2.5"
+    unit: "tbsp"
+  - name: "Maple Syrup"
+    qty: "1"
+    unit: "tsp"
+  - name: "Black Pepper"
+    qty: "3"
+    unit: "cracks"
+  - name: "Water"
+    qty: "2"
+    unit: "tbsp"
+  - name: "Sunflower Oil (or grapeseed oil)"
+    qty: "7"
+    unit: "tbsp"
+cookware:
+  - name: "Mason jar"
+    qty: "1"
+steps:
+  - "Add all ingredients to a mason jar."
+  - "Shake vigorously until well combined and emulsified."
+  - "Refrigerate for at least 1 hour before serving to allow flavors to meld."
+  - "Store in refrigerator for up to 2-3 weeks."
 ---
-
-Ingredients:
-
-- Apple Cider Vinegar, 2.5 tbsp
-- Garlic, 1 clove
-- Soy Sauce, 2.5 tbsp 
-- Maple Syrup, 1 tsp
-- Black Pepper, 3 cracks
-- Water, 2 tbsp
-- Sunflower Oil (or grapeseed oil), 7 tbsp 
-
-Cookware:
-
-- Mason jar, 1
-
-Steps:
-
-- Add all ingredients to a mason jar.
-- Shake vigorously until well combined and emulsified.
-- Refrigerate for at least 1 hour before serving to allow flavors to meld.
-- Store in refrigerator for up to 2-3 weeks. 

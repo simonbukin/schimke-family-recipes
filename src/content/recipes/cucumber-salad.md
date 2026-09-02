@@ -1,21 +1,20 @@
 ---
-author: Kayla Schimke
-time: 10 minutes
-servings: "5"
-type: snack
-name: Cucumber Salad
-emoji: 🥒
+name: "Cucumber Salad"
+emoji: "🥒"
+type: "snack"
+author: "Kayla Schimke"
+time: "10 minutes"
+servings: 5
+ingredients:
+  - name: "Newman's Own balsamic vinaigrette"
+    qty: "to taste"
+  - name: "Cucumbers"
+    qty: "5"
+  - name: "Red bell pepper"
+    qty: "1"
+steps:
+  - "Dice the red bell pepper."
+  - "Peel and slice the cucumbers."
+  - "Combine the diced bell pepper and sliced cucumbers with the balsamic vinaigrette."
+  - "Refrigerate the salad before serving."
 ---
-
-Ingredients:
-
-- Newman's Own balsamic vinaigrette, to taste
-- Cucumbers, 5
-- Red bell pepper, 1
-
-Steps:
-
-- Dice the red bell pepper.
-- Peel and slice the cucumbers.
-- Combine the diced bell pepper and sliced cucumbers with the balsamic vinaigrette.
-- Refrigerate the salad before serving.

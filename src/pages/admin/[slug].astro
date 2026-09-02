@@ -1,0 +1,56 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import RecipeForm from "../../components/RecipeForm.svelte";
+import type { RecipeFile } from "../../utils/recipeFile";
+import { getRecipeSha, getRepoConfig } from "../../lib/github";
+
+const { slug } = Astro.params;
+const recipe = slug ? await getEntry("recipes", slug) : undefined;
+
+if (!slug || !recipe) return Astro.redirect("/admin");
+
+const recipeOptions = (await getCollection("recipes"))
+  .filter((entry) => entry.id !== slug)
+  .map((entry) => ({ slug: entry.id, name: entry.data.name }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+// The version this edit starts from. Sent back on save so a concurrent commit
+// is rejected rather than silently overwritten.
+let baseSha = "";
+let versionError = "";
+try {
+  baseSha = (await getRecipeSha(getRepoConfig(), slug)) ?? "";
+  if (!baseSha) versionError = "This recipe isn't in the repository yet.";
+} catch (error) {
+  console.error("Could not read the current recipe version", error);
+  versionError = "Couldn't reach GitHub, so saving is unavailable right now.";
+}
+
+const initial = recipe.data as RecipeFile;
+---
+
+<Layout title={`Edit ${recipe.data.name}`}>
+  <main class="min-h-screen bg-orange-50 p-4 max-w-2xl mx-auto">
+    <a href="/admin" class="inline-flex items-center min-h-[44px] text-orange-700 hover:text-orange-800">
+      ← All recipes
+    </a>
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">
+      {recipe.data.emoji} {recipe.data.name}
+    </h1>
+    {
+      versionError && (
+        <p class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm">
+          {versionError}
+        </p>
+      )
+    }
+    <RecipeForm
+      client:load
+      slug={slug}
+      baseSha={baseSha}
+      recipe={initial}
+      recipeOptions={recipeOptions}
+    />
+  </main>
+</Layout>

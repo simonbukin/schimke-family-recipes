@@ -109,6 +109,8 @@
     flex: 1;
     color: #1f2937;
     line-height: 1.6;
+    /* Steps are written in a textarea, so keep the author's line breaks. */
+    white-space: pre-line;
   }
 
   @media (min-width: 768px) {

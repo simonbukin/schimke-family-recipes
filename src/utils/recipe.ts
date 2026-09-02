@@ -1,4 +1,5 @@
 import { convertUnit } from "./units";
+import { isRecipeLink, type IngredientEntry } from "./recipeFile";
 
 /**
  * Safely parse a fraction or number string without using eval().
@@ -45,89 +46,31 @@ export interface Link {
   slug: string;
 }
 
-interface Cookware {
-  name: string;
-  quantity: string;
-}
-
-interface Recipe {
-  steps: string[];
-  ingredients: (Ingredient | Link)[];
-  cookware: Cookware[];
-}
-
-export function parseRecipe(lines: string[]): Recipe {
-  const recipe: Recipe = {
-    steps: [],
-    ingredients: [],
-    cookware: [],
-  };
-
-  let section = "";
-
-  lines.forEach((line) => {
-    if (line.startsWith("Ingredients:")) {
-      section = "ingredients";
-    } else if (line.startsWith("Cookware:")) {
-      section = "cookware";
-    } else if (line.startsWith("Steps:")) {
-      section = "steps";
-    } else if (line.trim() !== "") {
-      line = trimLine(line);
-      switch (section) {
-        case "ingredients":
-          if (line.includes("[[") && line.includes("]]")) {
-            const noBrackets = line.substring(2, line.length - 2);
-            recipe.ingredients.push({
-              type: "link",
-              name: noBrackets,
-              slug: noBrackets.toLowerCase().split(" ").join("-"),
-            });
-            break;
-          }
-          const [name, quantityAndUnit] = line
-            .split(",")
-            .map((part) => part.trim());
-          if (quantityAndUnit === "to taste") {
-            recipe.ingredients.push({
-              type: "ingredient",
-              name,
-              quantity: quantityAndUnit,
-              unit: "",
-            });
-          } else {
-            const [quantity, unit] = quantityAndUnit
-              .split(" ")
-              .map((part) => part.trim());
-            recipe.ingredients.push({
-              type: "ingredient",
-              name,
-              quantity,
-              unit: unit || "",
-            });
-          }
-          break;
-        case "cookware":
-          const [cookwareName, cookwareQuantity] = line
-            .split(",")
-            .map((part) => part.trim());
-          recipe.cookware.push({
-            name: cookwareName,
-            quantity: cookwareQuantity,
-          });
-          break;
-        case "steps":
-          recipe.steps.push(line);
-          break;
-      }
+/**
+ * Map the structured frontmatter entries onto the shape the ingredient list
+ * renders. Recipe links carry only a slug on disk, so their display name is
+ * resolved from the collection and stays in sync automatically.
+ */
+export function toViewIngredients(
+  entries: IngredientEntry[],
+  resolveRecipeName: (slug: string) => string | undefined
+): (Ingredient | Link)[] {
+  return entries.map((entry) => {
+    if (isRecipeLink(entry)) {
+      return {
+        type: "link",
+        name: resolveRecipeName(entry.recipe) ?? entry.recipe,
+        slug: entry.recipe,
+      };
     }
+    return {
+      type: "ingredient",
+      name: entry.name,
+      quantity: entry.qty ?? "",
+      unit: entry.unit ?? "",
+    };
   });
-  return recipe;
 }
-
-export const trimLine = (line: string) => {
-  return line.replace(/^-/, "").trim();
-};
 
 // Define a proper type for quantities
 export type Quantity =

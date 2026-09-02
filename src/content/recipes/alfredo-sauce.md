@@ -1,31 +1,39 @@
 ---
-author: Kayla Schimke
-time: 15 minutes
-servings: 6 servings
-type: entree
-name: Kayla's Alfredo Sauce
-emoji: 🍝
+name: "Kayla's Alfredo Sauce"
+emoji: "🍝"
+type: "entree"
+author: "Kayla Schimke"
+time: "15 minutes"
+servings: 6
+ingredients:
+  - name: "Butter"
+    qty: "1/2"
+    unit: "cup"
+  - name: "Heavy whipping cream"
+    qty: "1"
+    unit: "pint"
+  - name: "Garlic powder"
+    qty: "2"
+    unit: "tsp"
+  - name: "Italian seasoning"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Grated Parmesan cheese"
+    qty: "1"
+    unit: "cup"
+  - name: "Salt"
+    qty: "to taste"
+  - name: "Pepper"
+    qty: "to taste"
+cookware:
+  - name: "Sauce pan"
+    qty: "1"
+  - name: "Whisk"
+    qty: "1"
+steps:
+  - "Melt the butter over medium heat in a pan."
+  - "Whisk in the heavy whipping cream until combined."
+  - "Add the garlic powder, Italian seasoning and salt and pepper."
+  - "Gradually add the grated Parmesan cheese."
+  - "Simmer the sauce until smooth."
 ---
-
-Ingredients:
-
-- Butter, 1/2 cup
-- Heavy whipping cream, 1 pint
-- Garlic powder, 2 tsp
-- Italian seasoning, 1/2 tsp
-- Grated Parmesan cheese, 1 cup
-- Salt, to taste
-- Pepper, to taste
-
-Cookware:
-
-- Sauce pan, 1
-- Whisk, 1
-
-Steps:
-
-- Melt the butter over medium heat in a pan.
-- Whisk in the heavy whipping cream until combined.
-- Add the garlic powder, Italian seasoning and salt and pepper.
-- Gradually add the grated Parmesan cheese.
-- Simmer the sauce until smooth.
