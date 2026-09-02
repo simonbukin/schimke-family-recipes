@@ -1,25 +1,30 @@
 ---
-author: Kayla Schimke
-time: 30 minutes
-servings: 4 servings
-type: entree
-name: Pasta Salad
-emoji: 🥗
+name: "Pasta Salad"
+emoji: "🥗"
+type: "entree"
+author: "Kayla Schimke"
+time: "30 minutes"
+servings: 4
+ingredients:
+  - name: "Wishbone Italian dressing"
+    qty: "to taste"
+  - name: "Wacky Mac and veggie pasta"
+    qty: "16"
+    unit: "oz"
+  - name: "Sliced black olives"
+    qty: "1"
+    unit: "small can"
+  - name: "Red bell pepper"
+    qty: "1"
+  - name: "Cucumber"
+    qty: "1"
+  - name: "Feta cheese"
+    qty: "8"
+    unit: "oz"
+steps:
+  - "Boil the Wacky Mac and veggie pasta, then strain and let it cool."
+  - "Cube the red bell pepper and cucumber."
+  - "Combine the cooled pasta, sliced black olives, cubed red bell pepper, cucumber, and feta cheese."
+  - "Dress the salad with Wishbone Italian dressing."
+  - "Keep the pasta salad refrigerated."
 ---
-
-Ingredients:
-
-- Wishbone Italian dressing, to taste
-- Wacky Mac and veggie pasta, 16 oz
-- Sliced black olives, 1 small can
-- Red bell pepper, 1
-- Cucumber, 1
-- Feta cheese, 8 oz
-
-Steps:
-
-- Boil the Wacky Mac and veggie pasta, then strain and let it cool.
-- Cube the red bell pepper and cucumber.
-- Combine the cooled pasta, sliced black olives, cubed red bell pepper, cucumber, and feta cheese.
-- Dress the salad with Wishbone Italian dressing.
-- Keep the pasta salad refrigerated.

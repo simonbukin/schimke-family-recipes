@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { pickRandom } from "../utils/generic";
+
+const suggestion = pickRandom(await getCollection("recipes"));
+---
+
+<Layout title="Not found">
+  <main class="min-h-screen bg-orange-50 p-4 flex items-center justify-center">
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-sm p-6 text-center flex flex-col gap-4">
+      <span class="text-4xl">🍳</span>
+      <h1 class="text-xl font-bold text-gray-900">We don't have that one</h1>
+      <p class="text-sm text-gray-600">
+        That recipe isn't in the collection &mdash; at least not under that name.
+      </p>
+      {
+        suggestion && (
+          <a
+            href={`/recipe/${suggestion.id}`}
+            class="min-h-[44px] flex items-center justify-center gap-2 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600"
+          >
+            <span>{suggestion.data.emoji}</span>
+            <span>Try {suggestion.data.name}</span>
+          </a>
+        )
+      }
+      <a href="/" class="text-sm text-gray-500 hover:text-gray-700">Back home</a>
+    </div>
+  </main>
+</Layout>

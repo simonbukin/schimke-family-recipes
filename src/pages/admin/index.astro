@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import { actions } from "astro:actions";
+import Layout from "../../layouts/Layout.astro";
+
+// The action has already cleared the cookie by the time this runs. Without a
+// redirect the page would re-render as if still signed in, so signing out would
+// look like it did nothing.
+const loggedOut = Astro.getActionResult(actions.logout);
+if (loggedOut && !loggedOut.error) return Astro.redirect("/");
+
+const recipes = (await getCollection("recipes")).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name)
+);
+const deleted = Astro.url.searchParams.has("deleted");
+---
+
+<Layout title="Manage recipes">
+  <main class="min-h-screen bg-orange-50 p-4 max-w-2xl mx-auto">
+    <header class="flex items-center justify-between gap-3 mb-4">
+      <h1 class="text-2xl font-bold text-gray-900">Recipes</h1>
+      <form method="POST" action={actions.logout}>
+        <button class="text-sm text-gray-500 hover:text-gray-700 min-h-[44px] px-2">
+          Sign out {Astro.locals.editor}
+        </button>
+      </form>
+    </header>
+
+    {
+      deleted && (
+        <p class="mb-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg p-3 text-sm">
+          Recipe deleted. It disappears from the site once the rebuild finishes.
+        </p>
+      )
+    }
+
+    <a
+      href="/admin/new"
+      class="flex items-center justify-center gap-2 min-h-[52px] mb-4 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600"
+    >
+      + Add a recipe
+    </a>
+
+    <ul class="grid gap-2">
+      {
+        recipes.map((recipe) => (
+          <li>
+            <a
+              href={`/admin/${recipe.id}`}
+              class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[56px]"
+            >
+              <span class="text-2xl">{recipe.data.emoji}</span>
+              <span class="flex-1 font-medium text-gray-900">{recipe.data.name}</span>
+              <span class="text-xs uppercase tracking-wide text-gray-400">{recipe.data.type}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a href="/" class="block text-center mt-6 text-sm text-gray-500 hover:text-gray-700">
+      Back to the site
+    </a>
+  </main>
+</Layout>

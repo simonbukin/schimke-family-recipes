@@ -1,39 +1,59 @@
 ---
-author: Kayla Schimke
-time: 30 minutes
-servings: "4"
-type: entree
-name: Poor Man's Stroganoff
-emoji: 🥩
+name: "Poor Man's Stroganoff"
+emoji: "🥩"
+type: "entree"
+author: "Kayla Schimke"
+time: "30 minutes"
+servings: 4
+ingredients:
+  - name: "Pasta (medium shells)"
+    qty: "1"
+    unit: "lb"
+  - name: "Ground turkey"
+    qty: "1"
+    unit: "lb"
+  - name: "Campbell's Cream of Mushroom Soup"
+    qty: "1"
+    unit: "can"
+  - name: "Dried onion flakes"
+    qty: "1"
+    unit: "tbsp"
+  - name: "Dillweed"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Garlic powder"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Paprika"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Worcestershire sauce"
+    qty: "1"
+    unit: "tsp"
+  - name: "White wine"
+    qty: "6"
+    unit: "oz"
+  - name: "Salt"
+    qty: "to taste"
+  - name: "Pepper"
+    qty: "to taste"
+  - name: "Sour cream"
+    qty: "8"
+    unit: "oz"
+cookware:
+  - name: "Saucepan"
+    qty: "1"
+  - name: "Large pot"
+    qty: "1"
+  - name: "Wooden spoon"
+    qty: "1"
+  - name: "Colander"
+    qty: "1"
+steps:
+  - "Brown meat with onion, salt, and pepper."
+  - "Stir in soup."
+  - "Pour white wine into soup can, about half full, and add to sauce."
+  - "Stir in spices and Worcestershire."
+  - "Taste sauce (yum)."
+  - "Add sour cream and let simmer for 15 minutes."
 ---
-
-Cookware:
-
-- Saucepan, 1
-- Large pot, 1
-- Wooden spoon, 1
-- Colander, 1
-
-Ingredients:
-
-- Pasta (medium shells), 1 lb
-- Ground turkey, 1 lb
-- Campbell's Cream of Mushroom Soup, 1 can
-- Dried onion flakes, 1 tbsp
-- Dillweed, 1/4 tsp
-- Garlic powder, 1/2 tsp
-- Paprika, 1/4 tsp
-- Worcestershire sauce, 1 tsp
-- White wine, 6 oz
-- Salt, to taste
-- Pepper, to taste
-- Sour cream, 8 oz
-
-Steps:
-
-- Brown meat with onion, salt, and pepper.
-- Stir in soup.
-- Pour white wine into soup can, about half full, and add to sauce.
-- Stir in spices and Worcestershire.
-- Taste sauce (yum).
-- Add sour cream and let simmer for 15 minutes.

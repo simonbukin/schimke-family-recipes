@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const slug = Astro.url.searchParams.get("slug") ?? "";
+const created = Astro.url.searchParams.get("created") === "true";
+
+if (!slug) return Astro.redirect("/admin");
+---
+
+<Layout title="Saved">
+  <main class="min-h-screen bg-orange-50 p-4 flex items-center justify-center">
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-sm p-6 text-center flex flex-col gap-4">
+      <span class="text-4xl">✅</span>
+      <h1 class="text-xl font-bold text-gray-900">
+        {created ? "Recipe added" : "Changes saved"}
+      </h1>
+      <p class="text-sm text-gray-600">
+        Committed to the repo. The live site updates when the rebuild finishes &mdash;
+        usually under a minute.
+      </p>
+
+      <a href={`/recipe/${slug}`} class="min-h-[44px] flex items-center justify-center bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600">
+        View the recipe
+      </a>
+      <a href="/admin" class="text-sm text-gray-500 hover:text-gray-700">Back to all recipes</a>
+    </div>
+  </main>
+</Layout>

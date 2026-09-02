@@ -1,32 +1,38 @@
 ---
-author: Simon Bukin
-time: 1 hour
-servings: 1 serving
-type: breakfast
-name: Spam and Eggs
-emoji: 🍳
+name: "Spam and Eggs"
+emoji: "🍳"
+type: "breakfast"
+author: "Simon Bukin"
+time: "1 hour"
+servings: 1
+ingredients:
+  - name: "Lite Spam"
+    qty: "1/4"
+    unit: "can"
+  - name: "Eggs"
+    qty: "2"
+  - name: "Rice"
+    qty: "1/2"
+    unit: "cup"
+  - name: "Salt"
+    qty: "to taste"
+  - name: "Pepper"
+    qty: "to taste"
+  - name: "Rice seasoning"
+    qty: "to taste"
+  - name: "Soy Sauce"
+    qty: "to taste"
+cookware:
+  - name: "Small pan"
+    qty: "1"
+  - name: "Rice cooker"
+    qty: "1"
+  - name: "Bowl"
+    qty: "1"
+steps:
+  - "Put rice in rice cooker with water and cook for 45 minutes."
+  - "Start slicing the Spam into chunky cubes ~10 minutes before the rice is done."
+  - "Fry the Spam in a pan on medium heat until crispy."
+  - "Crack egg into pan and cook to desired doneness."
+  - "Assembled rice, eggs, and Spam in bowl. Add desired toppings (soy sauce, rice seasoning, etc)."
 ---
-
-Cookware:
-
-- Small pan, 1
-- Rice cooker, 1
-- Bowl, 1
-
-Ingredients:
-
-- Lite Spam, 1/4 can
-- Eggs, 2
-- Rice, 1/2 cup
-- Salt, to taste
-- Pepper, to taste
-- Rice seasoning, to taste
-- Soy Sauce, to taste
-
-Steps:
-
-- Put rice in rice cooker with water and cook for 45 minutes.
-- Start slicing the Spam into chunky cubes ~10 minutes before the rice is done.
-- Fry the Spam in a pan on medium heat until crispy.
-- Crack egg into pan and cook to desired doneness.
-- Assembled rice, eggs, and Spam in bowl. Add desired toppings (soy sauce, rice seasoning, etc).

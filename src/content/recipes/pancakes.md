@@ -1,34 +1,43 @@
 ---
-author: Jenn Segal
-time: 40 minutes
-servings: 16 pancakes
-type: breakfast
-name: Pancakes
-emoji: 🥞
-link: https://www.onceuponachef.com/recipes/best-pancake-recipe.html
+name: "Pancakes"
+emoji: "🥞"
+type: "breakfast"
+author: "Jenn Segal"
+link: "https://www.onceuponachef.com/recipes/best-pancake-recipe.html"
+time: "40 minutes"
+servings: 16
+ingredients:
+  - name: "All-purpose flour"
+    qty: "2"
+    unit: "cups"
+  - name: "Baking powder"
+    qty: "4"
+    unit: "tsp"
+  - name: "Sugar"
+    qty: "1/4"
+    unit: "cup"
+  - name: "Salt"
+    qty: "1"
+    unit: "tsp"
+  - name: "Eggs"
+    qty: "2"
+  - name: "Milk"
+    qty: "3/2"
+    unit: "cups"
+  - name: "Unsalted butter"
+    qty: "4"
+    unit: "tbsp"
+cookware:
+  - name: "Bowl"
+    qty: "2"
+  - name: "Pan"
+    qty: "1"
+steps:
+  - "In a large bowl, whisk together the flour, baking powder, sugar and salt."
+  - "In a medium bowl, whisk the eggs and milk until evenly combined."
+  - "Pour the milk/egg mixture and the melted butter into the dry ingredients and whisk until just combined."
+  - "Heat a pan over medium heat."
+  - "Pour 1/4 cup of batter onto the pan and cook until bubbles form on the surface."
+  - "Flip the pancake and cook until golden brown."
+  - "Repeat until out of batter."
 ---
-
-Ingredients:
-
-- All-purpose flour, 2 cups
-- Baking powder, 4 tsp
-- Sugar, 1/4 cup
-- Salt, 1 tsp
-- Eggs, 2
-- Milk, 3/2 cups
-- Unsalted butter, 4 tbsp
-
-Cookware:
-
-- Bowl, 2
-- Pan, 1
-
-Steps:
-
-- In a large bowl, whisk together the flour, baking powder, sugar and salt.
-- In a medium bowl, whisk the eggs and milk until evenly combined.
-- Pour the milk/egg mixture and the melted butter into the dry ingredients and whisk until just combined.
-- Heat a pan over medium heat.
-- Pour 1/4 cup of batter onto the pan and cook until bubbles form on the surface.
-- Flip the pancake and cook until golden brown.
-- Repeat until out of batter.

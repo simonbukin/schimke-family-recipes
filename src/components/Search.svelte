@@ -1,15 +1,11 @@
 <script lang="ts">
   import { pickRandom } from "../utils/generic";
   import { convertDurationToMinutes } from "../utils/time";
-  import type { Recipe } from '../content.config';
+  import type { SearchEntry } from '../utils/search';
   import { fade } from "svelte/transition";
   import Fuse from "fuse.js";
 
-  type RecipeEntry = {
-    id: string;
-    body?: string;
-    data: Recipe;
-  };
+  type RecipeEntry = SearchEntry;
 
   interface Props {
     searchContent?: RecipeEntry[];
@@ -27,7 +23,10 @@
     keys: [
       { name: "data.name", weight: 1.0 },
       { name: "data.author", weight: 0.7 },
-      { name: "body", weight: 0.3 },
+      // Recipe content lives in the frontmatter, so index it directly rather
+      // than the (now empty) markdown body.
+      { name: "data.ingredients.name", weight: 0.5 },
+      { name: "data.steps", weight: 0.3 },
     ],
     threshold: 0.3,
   });
@@ -63,6 +62,12 @@
     }
   };
 
+  /** Times are free text, so fall back to showing them verbatim. */
+  function formatTime(time: string): string {
+    const minutes = convertDurationToMinutes(time);
+    return minutes === null ? time : `${minutes}m`;
+  }
+
   function clearSearch() {
     searchValue = '';
   }
@@ -78,7 +83,7 @@
   <div class="results-gap">
     {#each filteredRecipes.slice(0, 5) as recipe (recipe.id)}
       <a href={`/recipe/${recipe.id}`} class="result-item">
-        <span class="result-time">{convertDurationToMinutes(recipe.data.time)}m</span>
+        <span class="result-time">{formatTime(recipe.data.time)}</span>
         <span class="result-emoji">{recipe.data.emoji}</span>
         <span class="result-name">{recipe.data.name}</span>
       </a>

@@ -1,35 +1,45 @@
 ---
-author: Kayla Schimke
-time: 45 minutes
-servings: 4 servings
-type: drink
-name: Thai Tea 
-emoji: 🧋
+name: "Thai Tea"
+emoji: "🧋"
+type: "drink"
+author: "Kayla Schimke"
+time: "45 minutes"
+servings: 4
+ingredients:
+  - name: "Water"
+    qty: "4"
+    unit: "cups"
+  - name: "Black tea"
+    qty: "4"
+    unit: "bags"
+  - name: "Granulated sugar"
+    qty: "3/4"
+    unit: "cup"
+  - name: "Star anise"
+    qty: "2"
+  - name: "Green cardamom pod"
+    qty: "1"
+  - name: "Whole cloves"
+    qty: "2"
+  - name: "Half and half or milk"
+    qty: "1"
+    unit: "cup"
+  - name: "Ice cubes"
+    qty: "1"
+    unit: "cup"
+cookware:
+  - name: "Pot"
+    qty: "1"
+  - name: "Pitcher"
+    qty: "1"
+  - name: "Wooden spoon"
+    qty: "1"
+steps:
+  - "Add water to pot and bring to boil."
+  - "Add tea bags, sugar, star anise, crushed cardamom pod, and cloves to pot."
+  - "Stir until the sugar dissolves."
+  - "Boil for 3 minutes. Remove from heat."
+  - "Allow tea to steep and cool for 30 minutes to 2 hours."
+  - "Transfer to pitcher for storage in refrigerator."
+  - "Serve over ice with a splash of your favorite milky beverage."
 ---
-
-Ingredients:
-
-- Water, 4 cups
-- Black tea, 4 bags
-- Granulated sugar, 3/4 cup
-- Star anise, 2 
-- Green cardamom pod, 1
-- Whole cloves, 2
-- Half and half or milk, 1 cup
-- Ice cubes, 1 cup
-
-Cookware:
-
-- Pot, 1
-- Pitcher, 1
-- Wooden spoon, 1
-
-Steps:
-
-- Add water to pot and bring to boil.
-- Add tea bags, sugar, star anise, crushed cardamom pod, and cloves to pot.
-- Stir until the sugar dissolves.
-- Boil for 3 minutes. Remove from heat.
-- Allow tea to steep and cool for 30 minutes to 2 hours.
-- Transfer to pitcher for storage in refrigerator.
-- Serve over ice with a splash of your favorite milky beverage.

@@ -1,41 +1,57 @@
 ---
-author: Layla Atik
-time: 1 hour
-servings: 4 servings
-type: entree
-name: Broccoli Cheddar Soup
-emoji: 🍲
-link: https://gimmedelicious.com/broccoli-cheddar-soup/
+name: "Broccoli Cheddar Soup"
+emoji: "🍲"
+type: "entree"
+author: "Layla Atik"
+link: "https://gimmedelicious.com/broccoli-cheddar-soup/"
+time: "1 hour"
+servings: 4
+ingredients:
+  - name: "Butter"
+    qty: "4"
+    unit: "tbsp"
+  - name: "All purpose flour"
+    qty: "4"
+    unit: "tbsp"
+  - name: "Broccoli florets"
+    qty: "3"
+    unit: "cups"
+  - name: "Shredded carrots"
+    qty: "1/2"
+    unit: "cup"
+  - name: "White onion"
+    qty: "1/2"
+  - name: "Garlic cloves (minced)"
+    qty: "3"
+  - name: "Cheddar cheese"
+    qty: "12"
+    unit: "oz"
+  - name: "Chicken broth"
+    qty: "4"
+    unit: "cups"
+  - name: "Half and half"
+    qty: "2"
+    unit: "cups"
+  - name: "Paprika"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Salt"
+    qty: "to taste"
+  - name: "Pepper"
+    qty: "to taste"
+cookware:
+  - name: "Pot"
+    qty: "1"
+  - name: "Wooden spoon"
+    qty: "1"
+steps:
+  - "Dice onion and chop broccoli"
+  - "Melt butter in the pot over medium heat"
+  - "Add onions and saute until translucent"
+  - "Add garlic and cook until fragrant"
+  - "Add flour and stir until it turns golden"
+  - "Add chicken broth, broccoli, carrots, and seasoning and bring to a boil"
+  - "Reduce heat and simmer for 15 minutes"
+  - "Stir in half and half and grate cheddar cheese into pot"
+  - "Simmer until combined"
 ---
-
-Ingredients:
-
-- Butter, 4 tbsp
-- All purpose flour, 4 tbsp
-- Broccoli florets, 3 cups
-- Shredded carrots, 1/2 cup
-- White onion, 1/2
-- Garlic cloves (minced), 3
-- Cheddar cheese, 12 oz
-- Chicken broth, 4 cups
-- Half and half, 2 cups
-- Paprika, 1/2 tsp
-- Salt, to taste
-- Pepper, to taste
-
-Cookware:
-
-- Pot, 1
-- Wooden spoon, 1
-
-Steps:
-
-- Dice onion and chop broccoli
-- Melt butter in the pot over medium heat
-- Add onions and saute until translucent
-- Add garlic and cook until fragrant
-- Add flour and stir until it turns golden 
-- Add chicken broth, broccoli, carrots, and seasoning and bring to a boil
-- Reduce heat and simmer for 15 minutes
-- Stir in half and half and grate cheddar cheese into pot
-- Simmer until combined

@@ -1,42 +1,64 @@
 ---
-author: Kayla Schimke
-time: 90 minutes
-servings: 12 cookies
-type: dessert
-name: Cranberry Orange Cookies
-emoji: 🍪
+name: "Cranberry Orange Cookies"
+emoji: "🍪"
+type: "dessert"
+author: "Kayla Schimke"
+time: "90 minutes"
+servings: 12
+ingredients:
+  - name: "Butter"
+    qty: "1"
+    unit: "cup"
+  - name: "Granulated Sugar"
+    qty: "1"
+    unit: "cup"
+  - name: "Packed Brown Sugar"
+    qty: "1/2"
+    unit: "cup"
+  - name: "Eggs"
+    qty: "2"
+  - name: "Vanilla Extract"
+    qty: "1"
+    unit: "tsp"
+  - name: "All-purpose flour"
+    qty: "2"
+    unit: "cup"
+  - name: "Baking powder"
+    qty: "1"
+    unit: "tsp"
+  - name: "Baking soda"
+    qty: "1/4"
+    unit: "tsp"
+  - name: "Cinnamon"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Quick-cooking oats"
+    qty: "2"
+    unit: "cup"
+  - name: "Salt"
+    qty: "1/2"
+    unit: "tsp"
+  - name: "Orange zest"
+    qty: "1"
+    unit: "tbsp"
+  - name: "Cranberries"
+    qty: "1.5"
+    unit: "cup"
+cookware:
+  - name: "Bowl"
+    qty: "2"
+  - name: "Baking sheet"
+    qty: "1"
+  - name: "Silicon baking mat"
+    qty: "1"
+steps:
+  - "In a bowl, cream butter with granulated sugar and packed brown sugar until light and fluffy."
+  - "Beat in eggs and vanilla extract."
+  - "In a second bowl, whisk together all-purpose flour, baking powder, baking soda, cinnamon, quick-cooking oats and salt."
+  - "Add the combined mixture to the creamed mixture slowly while mixing."
+  - "Fold in orange zest and cranberries."
+  - "Chill dough for at least 1 hour."
+  - "Preheat oven to 375°F."
+  - "Create 1 tbsp sized balls of dough and flatten on baking sheet (complete with silicone baking mat)."
+  - "Bake for 11 minutes."
 ---
-
-Cookware:
-
-- Bowl, 2
-- Baking sheet, 1
-- Silicon baking mat, 1
-
-Ingredients:
-
-- Butter, 1 cup
-- Granulated Sugar, 1 cup
-- Packed Brown Sugar, 1/2 cup
-- Eggs, 2
-- Vanilla Extract, 1 tsp
-- All-purpose flour, 2 cup
-- Baking powder, 1 tsp
-- Baking soda, 1/4 tsp
-- Cinnamon, 1/2 tsp
-- Quick-cooking oats, 2 cup
-- Salt, 1/2 tsp
-- Orange zest, 1 tbsp
-- Cranberries, 1.5 cup
-
-Steps:
-
-- In a bowl, cream butter with granulated sugar and packed brown sugar until light and fluffy.
-- Beat in eggs and vanilla extract.
-- In a second bowl, whisk together all-purpose flour, baking powder, baking soda, cinnamon, quick-cooking oats and salt.
-- Add the combined mixture to the creamed mixture slowly while mixing.
-- Fold in orange zest and cranberries.
-- Chill dough for at least 1 hour.
-- Preheat oven to 375°F.
-- Create 1 tbsp sized balls of dough and flatten on baking sheet (complete with silicone baking mat).
-- Bake for 11 minutes.

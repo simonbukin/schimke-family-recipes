@@ -1,29 +1,37 @@
 ---
-author: Kayla Schimke
-time: 10 minutes
-servings: 8 servings
-type: drink
-name: Apple Cider Margarita
-emoji: 🍷 
+name: "Apple Cider Margarita"
+emoji: "🍷"
+type: "drink"
+author: "Kayla Schimke"
+time: "10 minutes"
+servings: 8
+ingredients:
+  - name: "Tequila"
+    qty: "1.5"
+    unit: "cups"
+  - name: "Apple Cider"
+    qty: "2"
+    unit: "cups"
+  - name: "Triple Sec or Cointreau"
+    qty: "3/4"
+    unit: "cup"
+  - name: "Lime juice"
+    qty: "3/4"
+    unit: "cup"
+  - name: "Ice"
+    qty: "3"
+    unit: "handfuls"
+  - name: "Cinnamon sugar"
+    qty: "1/2"
+    unit: "cup"
+cookware:
+  - name: "Margarita glasses"
+    qty: "8"
+  - name: "Pitcher"
+    qty: "1"
+steps:
+  - "Pour tequila, apple cider, triple sec and lime juice into pitcher."
+  - "Add ice and stir to combine."
+  - "Cinnamon sugar the rims."
+  - "Pour into 8 glasses and serve."
 ---
-
-Ingredients:
-
-- Tequila, 1.5 cups
-- Apple Cider, 2 cups
-- Triple Sec or Cointreau, 3/4 cup
-- Lime juice, 3/4 cup
-- Ice, 3 handfuls
-- Cinnamon sugar, 1/2 cup
-
-Cookware:
-
-- Margarita glasses, 8
-- Pitcher, 1
-
-Steps:
-
-- Pour tequila, apple cider, triple sec and lime juice into pitcher.
-- Add ice and stir to combine.
-- Cinnamon sugar the rims.
-- Pour into 8 glasses and serve.
