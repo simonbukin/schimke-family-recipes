@@ -35,14 +35,20 @@ each one to **Production, Preview, and Development**:
 | Name | Value |
 | --- | --- |
 | `AUTH_SECRET` | the string from step 1 |
-| `EDITORS` | `simon:PICK-A-PASSWORD,kayla:PICK-ANOTHER` |
+| `EDITORS` | `simonbukin:PICK-A-PASSWORD,kschimke:PICK-ANOTHER` |
 | `GITHUB_TOKEN` | the token from step 2 |
 | `GITHUB_REPO` | `simonbukin/schimke-family-recipes` |
 
-`EDITORS` is a comma-separated list of `name:password`. The name shows up as the
-commit author, so you can tell in `git log` who changed what. Passwords may
-contain colons; the name is everything before the *first* colon. Avoid commas in
-passwords, since commas separate the entries.
+`EDITORS` is a comma-separated list of `github-username:password`.
+
+**The name must be the person's actual GitHub username** &mdash; `simonbukin`,
+not `simon`. It is looked up against the GitHub API to find the address GitHub
+links commits by, so edits show up in `git log` and on github.com as that
+person. A username that doesn't resolve falls back to attributing the commit to
+whoever owns `GITHUB_TOKEN`, and logs a warning.
+
+Passwords may contain colons and commas; the username is everything before the
+*first* colon.
 
 ## 4. Deploy
 
