@@ -10,7 +10,7 @@ const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
 
 <Layout title={`${slug} items`}>
   <main class="p-4 md:p-6 min-h-screen max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-    <a class="text-orange-700 hover:text-orange-800 mb-4 inline-flex items-center gap-1 p-2 -ml-2 min-h-[44px]" href="/">
+    <a class="text-accent hover:text-accent-strong mb-4 inline-flex items-center gap-1 p-2 -ml-2 min-h-[44px]" href="/">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
       </svg>
@@ -24,11 +24,11 @@ const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
 
       {
         filteredRecipes.length === 0 && (
-          <div class="bg-orange-100 rounded-lg p-4 text-center">
+          <div class="bg-accent-soft rounded-lg p-4 text-center">
             <p class="text-lg">
               No recipes found in this category.{" "}
               <a
-                class="underline text-orange-600 hover:text-orange-700"
+                class="underline text-accent hover:text-accent-strong"
                 href={`/recipe/${pickRandom(recipes)?.id ?? ''}`}
               >
                 Try something random?
@@ -44,7 +44,7 @@ const filteredRecipes = recipes.filter((recipe) => recipe.data.type === slug);
             <li>
               <a
                 href={`/recipe/${recipe.id}`}
-                class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[60px]"
+                class="flex items-center gap-3 p-4 bg-surface rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[60px]"
               >
                 <span class="text-2xl sm:text-3xl">{recipe.data.emoji}</span>
                 <span transition:name={`recipe-${recipe.id}`} class="text-lg sm:text-xl font-medium">{recipe.data.name}</span>

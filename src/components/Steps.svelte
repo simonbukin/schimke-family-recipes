@@ -1,9 +1,15 @@
 <script lang="ts">
+  import StepTimer from './StepTimer.svelte';
+  import { segmentStep } from '../utils/timers';
+
   interface Props {
     steps: string[];
   }
 
   let { steps }: Props = $props();
+
+  // Durations written in a step ("bake 20 minutes") become tappable timers.
+  let stepSegments = $derived(steps.map(segmentStep));
 
   let completed = $state(steps.map(() => false));
 
@@ -17,17 +23,17 @@
 
 <section class="mt-6 lg:mt-0">
   <div class="flex items-center justify-between mb-4">
-    <h2 class="text-lg md:text-xl font-semibold text-gray-900">Steps</h2>
+    <h2 class="text-lg md:text-xl font-semibold text-ink">Steps</h2>
     {#if completedCount > 0}
-      <span class="text-sm text-gray-500">
+      <span class="text-sm text-ink-subtle">
         {completedCount}/{steps.length} done
       </span>
     {/if}
   </div>
 
   {#if allCompleted}
-    <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
-      <span class="text-green-700 font-medium">All done! Enjoy your meal!</span>
+    <div class="mb-4 p-3 bg-accent-soft border border-edge rounded-lg text-center">
+      <span class="text-done font-medium">All done! Enjoy your meal!</span>
     </div>
   {/if}
 
@@ -50,7 +56,7 @@
             {index + 1}
           {/if}
         </button>
-        <p class="step-text">{step}</p>
+        <p class="step-text">{#each stepSegments[index] as segment}{#if segment.type === 'duration'}<StepTimer label={segment.text} seconds={segment.seconds} stepSeconds={segment.stepSeconds} />{:else}{segment.text}{/if}{/each}</p>
       </li>
     {/each}
   </ol>
@@ -61,7 +67,7 @@
     display: flex;
     gap: 1rem;
     padding: 0.75rem;
-    background: white;
+    background: var(--color-surface);
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
     transition: all 0.2s;
@@ -72,11 +78,11 @@
   }
 
   .step-row.completed {
-    background: rgb(249 250 251);
+    background: var(--color-surface-sunken);
   }
 
   .step-row.completed .step-text {
-    color: #9ca3af;
+    color: var(--color-ink-subtle);
     text-decoration: line-through;
   }
 
@@ -87,7 +93,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f97316;
+    background: var(--color-marker);
     color: white;
     border-radius: 9999px;
     font-weight: 600;
@@ -97,17 +103,17 @@
   }
 
   .step-number:hover {
-    background: #ea580c;
+    background: var(--color-accent-strong);
     transform: scale(1.05);
   }
 
   .step-row.completed .step-number {
-    background: #22c55e;
+    background: var(--color-done);
   }
 
   .step-text {
     flex: 1;
-    color: #1f2937;
+    color: var(--color-ink);
     line-height: 1.6;
     /* Steps are written in a textarea, so keep the author's line breaks. */
     white-space: pre-line;

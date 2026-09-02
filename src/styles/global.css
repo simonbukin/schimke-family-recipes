@@ -1,15 +1,120 @@
 @import "tailwindcss";
 
-/* Custom theme configuration (replaces tailwind.config.mjs) */
+/*
+ * Dark mode is opt-in and driven by data-theme on <html>. Because Tailwind 4
+ * compiles utilities down to var(--color-*), redefining the tokens below is
+ * enough to flip every surface at once -- no dark: variant on each element.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-display: "Atma", sans-serif;
   --font-code: "Menlo", monospace;
+
+  /* Semantic tokens. Never use a raw gray/white utility for these roles. */
+  --color-page: #fff7ed;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #fff7ed;
+  --color-ink: #1f2937;
+  --color-ink-muted: #6b7280;
+  --color-ink-subtle: #9ca3af;
+  --color-edge: #e5e7eb;
+  --color-edge-strong: #cbd5e1;
+
+  --color-brand: #f59e0b;
+  --color-brand-strong: #d97706;
+  --color-accent: #c2410c;
+  --color-accent-strong: #9a3412;
+  --color-accent-soft: #fff7ed;
+  --color-accent-line: #fed7aa;
+  --color-marker: #f97316;
+
+  --color-danger: #dc2626;
+  --color-danger-ink: #b91c1c;
+  --color-danger-soft: #fef2f2;
+  --color-danger-line: #fecaca;
+
+  --color-recipe-link: #0369a1;
+  --color-done: #22c55e;
+
+  --fun-a-from: #a78bfa;
+  --fun-a-to: #e879f9;
+  --fun-b-from: #22d3ee;
+  --fun-b-to: #3b82f6;
 }
 
-/* Global styles */
+/*
+ * Dark values are warm rather than neutral so the site keeps its kitchen feel,
+ * and text tones are chosen to stay at or above 4.5:1 on their own surface.
+ */
+[data-theme="dark"] {
+  --color-page: #17120e;
+  --color-surface: #221b16;
+  --color-surface-sunken: #1c1611;
+  --color-ink: #f2ece5;
+  --color-ink-muted: #bcb0a4;
+  --color-ink-subtle: #94897e;
+  --color-edge: #3a2f27;
+  --color-edge-strong: #4a3d33;
+
+  --color-brand: #b45309;
+  --color-brand-strong: #92400e;
+  --color-accent: #fdba74;
+  --color-accent-strong: #fed7aa;
+  --color-accent-soft: #2a201a;
+  --color-accent-line: #4a3a2c;
+  --color-marker: #c2410c;
+
+  --color-danger: #f87171;
+  --color-danger-ink: #fca5a5;
+  --color-danger-soft: #2b1a1a;
+  --color-danger-line: #5c2f2f;
+
+  --color-recipe-link: #7dd3fc;
+  --color-done: #4ade80;
+
+  --fun-a-from: #6d28d9;
+  --fun-a-to: #a21caf;
+  --fun-b-from: #0e7490;
+  --fun-b-to: #1d4ed8;
+
+  /*
+   * The category tiles and fun buttons are fully saturated by design. At full
+   * strength on a dark page they glow, so step them down a couple of stops.
+   * These Tailwind colours are used only by those tiles.
+   */
+  --color-emerald-500: #047857;
+  --color-emerald-600: #065f46;
+  --color-sky-500: #0369a1;
+  --color-sky-600: #075985;
+  --color-violet-500: #6d28d9;
+  --color-violet-600: #5b21b6;
+  --color-pink-500: #be185d;
+  --color-pink-600: #9d174d;
+  --color-lime-500: #4d7c0f;
+  --color-lime-600: #3f6212;
+  --color-cyan-500: #0e7490;
+  --color-cyan-600: #155e75;
+
+  /* Gives form controls, scrollbars and caret the dark treatment for free. */
+  color-scheme: dark;
+}
+
+/*
+ * Fills the visible viewport. 100vh on iOS is the *large* viewport -- sized as
+ * if the URL bar were hidden -- so a bottom-anchored bar ends up below the fold.
+ * Both declarations live in one rule because Tailwind orders its own utilities,
+ * so pairing `min-h-screen min-h-dvh` in the markup does not reliably cascade.
+ */
+@utility min-h-viewport {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 html {
   font-family: system-ui, sans-serif;
-  background-color: var(--color-orange-50);
+  background-color: var(--color-page);
+  color: var(--color-ink);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -22,5 +127,13 @@ html {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Theme changes shouldn't animate, but hovers and focus rings still should. */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-switching,
+  html.theme-switching * {
+    transition: none !important;
   }
 }

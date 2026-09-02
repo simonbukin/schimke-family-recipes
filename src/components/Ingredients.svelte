@@ -115,7 +115,7 @@
   h3 {
     font-size: 1.125rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--color-ink);
     margin-bottom: 0.75rem;
   }
 
@@ -139,7 +139,7 @@
   .ingredient-row.checked .name,
   .ingredient-row.checked .ingredient-link {
     text-decoration: line-through;
-    color: #9ca3af;
+    color: var(--color-ink-subtle);
   }
 
   /* Checkbox */
@@ -147,12 +147,12 @@
     width: 22px;
     height: 22px;
     min-width: 22px;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--color-edge);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: var(--color-surface);
     cursor: pointer;
     transition: all 0.15s;
     padding: 0;
@@ -165,30 +165,30 @@
   }
 
   .checkbox:hover {
-    border-color: #9ca3af;
+    border-color: var(--color-ink-subtle);
   }
 
   .ingredient-row.checked .checkbox {
-    background-color: #f97316;
-    border-color: #f97316;
+    background-color: var(--color-marker);
+    border-color: var(--color-marker);
     color: white;
   }
 
   .qty {
     font-variant-numeric: tabular-nums;
-    color: #ea580c;
+    color: var(--color-accent-strong);
     font-weight: 500;
     white-space: nowrap;
   }
 
   .unit {
-    color: #6b7280;
+    color: var(--color-ink-muted);
     font-size: 0.875rem;
   }
 
   /* Ingredient name */
   .name {
-    color: #1f2937;
+    color: var(--color-ink);
     font-weight: 600;
   }
 
@@ -202,7 +202,7 @@
     min-width: 28px;
     margin-left: auto;
     padding: 0;
-    color: #d1d5db;
+    color: var(--color-edge);
     border-radius: 6px;
     background: transparent;
     border: none;
@@ -216,7 +216,7 @@
   }
 
   .convert-btn:hover {
-    color: #f97316;
+    color: var(--color-marker);
     background-color: rgba(249, 115, 22, 0.1);
   }
 
@@ -232,7 +232,7 @@
 
   /* Recipe links */
   .ingredient-link {
-    color: #0369a1;
+    color: var(--color-recipe-link);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -240,7 +240,7 @@
   }
 
   .ingredient-link:hover {
-    color: #0284c7;
+    color: var(--color-recipe-link);
   }
 
   /* Mobile */

@@ -27,7 +27,7 @@ const canScale = typeof servings === "number" && servings > 0;
 
 <Layout title=`${name}`>
   <main class="p-4 md:p-6 min-h-screen max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
-    <a class="text-orange-700 hover:text-orange-800 mb-4 inline-flex items-center gap-1 p-2 -ml-2 min-h-[44px]" href="/">
+    <a class="text-accent hover:text-accent-strong mb-4 inline-flex items-center gap-1 p-2 -ml-2 min-h-[44px]" href="/">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
       </svg>
@@ -39,17 +39,17 @@ const canScale = typeof servings === "number" && servings > 0;
       <header class="lg:col-span-3 mb-4 lg:mb-6">
         <h1 class="text-xl sm:text-2xl md:text-3xl">
           <strong transition:name={`recipe-${slug}`}>{name}</strong>
-          <span class="text-gray-600 text-base sm:text-lg md:text-xl">
+          <span class="text-ink-muted text-base sm:text-lg md:text-xl">
             {author && link ? (
-              <>by <a href={link} target="_blank" rel="noopener noreferrer" class="text-orange-700 hover:text-orange-800 underline">{author}</a></>
+              <>by <a href={link} target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-strong underline">{author}</a></>
             ) : author ? (
               <>by {author}</>
             ) : link ? (
-              <a href={link} target="_blank" rel="noopener noreferrer" class="text-orange-700 hover:text-orange-800 underline">Original Recipe</a>
+              <a href={link} target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-strong underline">Original Recipe</a>
             ) : null}
           </span>
         </h1>
-        <div class="mt-2 flex flex-wrap items-center gap-3 text-gray-600">
+        <div class="mt-2 flex flex-wrap items-center gap-3 text-ink-muted">
           <span class="flex items-center gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
@@ -59,7 +59,7 @@ const canScale = typeof servings === "number" && servings > 0;
           {servings && <span>{servings} servings</span>}
           {
             Astro.locals.editor && (
-              <a href={`/admin/${slug}`} class="text-orange-700 hover:text-orange-800 underline">
+              <a href={`/admin/${slug}`} class="text-accent hover:text-accent-strong underline">
                 Edit
               </a>
             )
@@ -81,7 +81,7 @@ const canScale = typeof servings === "number" && servings > 0;
               <ul class="space-y-1">
                 {cookware.map((cw) => (
                   <li class="flex items-center gap-2">
-                    <span class="font-bold text-orange-600">{cw.qty}</span>
+                    <span class="font-bold text-accent">{cw.qty}</span>
                     <span>{`${cw.name}${Number(cw.qty) > 1 ? "s" : ""}`}</span>
                   </li>
                 ))}
