@@ -12,8 +12,14 @@ export interface DurationMatch {
   end: number;
   /** The matched text, e.g. "20 minutes". */
   text: string;
-  /** Total duration in seconds. For a range, the upper bound. */
+  /** Total duration in seconds. For a range, the rounded midpoint. */
   seconds: number;
+  /**
+   * How much one tap of the +/- control moves the timer: a second for
+   * durations written in seconds, a minute for minutes *and* hours. Nobody
+   * adjusts a two hour braise an hour at a time.
+   */
+  stepSeconds: number;
 }
 
 const UNIT_SECONDS: Record<string, number> = {
@@ -51,22 +57,43 @@ function normalizeUnit(raw: string): number | null {
   return UNIT_SECONDS[unit] ?? null;
 }
 
-/** "2-3" -> 3, "1 1/2" -> 1.5, "0.5" -> 0.5. Ranges use the upper bound. */
-function parseAmount(raw: string): number {
+interface Amount {
+  value: number;
+  /** Ranges produce a manufactured value, so only those get rounded. */
+  isRange: boolean;
+}
+
+/** "2-3" -> 2.5, "1 1/2" -> 1.5, "0.5" -> 0.5. Ranges use the midpoint. */
+function parseAmount(raw: string): Amount {
   const text = raw.trim();
 
   const range = text.match(
     /^([\d.]+)(?:\s*[-–—]\s*|\s+(?:to|or)\s+)([\d.]+)$/i
   );
-  if (range) return Number(range[2]);
+  if (range) {
+    return {
+      value: (Number(range[1]) + Number(range[2])) / 2,
+      isRange: true,
+    };
+  }
 
   const mixed = text.match(/^(\d+)\s+(\d+)\/(\d+)$/);
   if (mixed) {
     const denominator = Number(mixed[3]);
-    return denominator ? Number(mixed[1]) + Number(mixed[2]) / denominator : NaN;
+    return {
+      value: denominator
+        ? Number(mixed[1]) + Number(mixed[2]) / denominator
+        : NaN,
+      isRange: false,
+    };
   }
 
-  return Number(text);
+  return { value: Number(text), isRange: false };
+}
+
+/** A minute for anything written in minutes or hours, a second otherwise. */
+function stepFor(unitSeconds: number): number {
+  return unitSeconds >= 60 ? 60 : 1;
 }
 
 export function findDurations(text: string): DurationMatch[] {
@@ -77,9 +104,15 @@ export function findDurations(text: string): DurationMatch[] {
     if (unitSeconds === null) continue;
 
     const amount = parseAmount(match[1]);
-    if (!Number.isFinite(amount) || amount <= 0) continue;
+    if (!Number.isFinite(amount.value) || amount.value <= 0) continue;
 
-    const seconds = Math.round(amount * unitSeconds);
+    const stepSeconds = stepFor(unitSeconds);
+    const exact = amount.value * unitSeconds;
+    // A midpoint like 7.5 minutes is an artefact of averaging, so snap it to
+    // the step. An explicitly written "2.5 minutes" is left exactly alone.
+    const seconds = amount.isRange
+      ? Math.max(stepSeconds, Math.round(exact / stepSeconds) * stepSeconds)
+      : Math.round(exact);
     // Guard against nonsense like "350 F" slipping through as 350 seconds, and
     // against timers nobody would set.
     if (seconds < 5 || seconds > 24 * 3600) continue;
@@ -89,6 +122,7 @@ export function findDurations(text: string): DurationMatch[] {
       end: match.index + match[0].length,
       text: match[0],
       seconds,
+      stepSeconds,
     });
   }
 
@@ -98,7 +132,7 @@ export function findDurations(text: string): DurationMatch[] {
 /** Split a step into plain text and timer-able durations, in order. */
 export type Segment =
   | { type: "text"; text: string }
-  | { type: "duration"; text: string; seconds: number };
+  | { type: "duration"; text: string; seconds: number; stepSeconds: number };
 
 export function segmentStep(text: string): Segment[] {
   const durations = findDurations(text);
@@ -115,6 +149,7 @@ export function segmentStep(text: string): Segment[] {
       type: "duration",
       text: duration.text,
       seconds: duration.seconds,
+      stepSeconds: duration.stepSeconds,
     });
     cursor = duration.end;
   }

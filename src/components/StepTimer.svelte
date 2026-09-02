@@ -5,9 +5,14 @@
     /** The duration text as written in the step, e.g. "20 minutes". */
     label: string;
     seconds: number;
+    /** How much one tap of +/- moves the timer. */
+    stepSeconds: number;
   }
 
-  let { label, seconds }: Props = $props();
+  let { label, seconds, stepSeconds }: Props = $props();
+
+  const MAX_SECONDS = 24 * 60 * 60;
+  const stepName = $derived(stepSeconds >= 60 ? 'minute' : 'second');
 
   type State = 'idle' | 'running' | 'paused' | 'done';
 
@@ -44,6 +49,27 @@
     stopTicker();
     remaining = seconds;
     state = 'idle';
+  }
+
+  /**
+   * Nudge the timer while it is idle, running or paused. Recipes are guesses,
+   * so the range midpoint is a starting point rather than an answer.
+   */
+  function adjust(direction: 1 | -1) {
+    const next = Math.min(
+      MAX_SECONDS,
+      Math.max(stepSeconds, remaining + direction * stepSeconds)
+    );
+    remaining = next;
+    // Shift the deadline too, or a running countdown would snap back on the
+    // next tick.
+    if (state === 'running') endsAt = Date.now() + next * 1000;
+  }
+
+  /** "Needs another minute" -- the common case when a timer goes off early. */
+  function addMore() {
+    remaining = stepSeconds;
+    start();
   }
 
   function finish() {
@@ -91,23 +117,42 @@
 
 <span class="timer" class:running={state === 'running'} class:done={state === 'done'}>
   {#if state === 'idle'}
-    <button type="button" onclick={start} title={`Start a ${label} timer`}>
+    <button type="button" class="main" onclick={start} title={`Start a ${label} timer`}>
       <span class="icon" aria-hidden="true">⏱</span>{label}
     </button>
   {:else if state === 'done'}
-    <button type="button" onclick={reset} aria-live="polite">
+    <button type="button" class="main" onclick={reset} aria-live="polite">
       <span class="icon" aria-hidden="true">🔔</span>{label} — time's up
     </button>
+    <button
+      type="button"
+      class="nudge"
+      onclick={addMore}
+      aria-label={`Give it another ${stepName}`}
+      title={`Another ${stepName}`}>+</button>
   {:else}
     <button
       type="button"
+      class="nudge"
+      onclick={() => adjust(-1)}
+      aria-label={`One ${stepName} less`}
+      title={`One ${stepName} less`}>−</button>
+    <button
+      type="button"
+      class="main"
       onclick={state === 'running' ? pause : start}
       title={state === 'running' ? 'Pause' : 'Resume'}
     >
       <span class="icon" aria-hidden="true">{state === 'running' ? '⏸' : '▶'}</span>
       {formatCountdown(remaining)}
     </button>
-    <button type="button" class="cancel" onclick={reset} aria-label="Cancel timer">✕</button>
+    <button
+      type="button"
+      class="nudge"
+      onclick={() => adjust(1)}
+      aria-label={`One ${stepName} more`}
+      title={`One ${stepName} more`}>+</button>
+    <button type="button" class="nudge cancel" onclick={reset} aria-label="Cancel timer">✕</button>
   {/if}
 </span>
 
@@ -146,21 +191,29 @@
     font-size: 0.875em;
   }
 
-  .running button {
+  .running .main {
     border-color: var(--color-marker);
     color: var(--color-marker);
     font-variant-numeric: tabular-nums;
   }
 
-  .done button {
+  .done .main {
     border-color: var(--color-done);
     color: var(--color-done);
     animation: pulse 1s ease-in-out infinite;
   }
 
+  .nudge {
+    padding: 0.125rem;
+    min-width: 30px;
+    justify-content: center;
+    font-variant-numeric: normal;
+  }
+
   .cancel {
-    padding: 0.125rem 0.375rem;
     color: var(--color-ink-subtle);
+    border-color: var(--color-edge);
+    background: transparent;
   }
 
   @keyframes pulse {
@@ -170,7 +223,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .done button {
+    .done .main {
       animation: none;
     }
   }

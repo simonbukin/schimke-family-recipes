@@ -56,7 +56,7 @@
             {index + 1}
           {/if}
         </button>
-        <p class="step-text">{#each stepSegments[index] as segment}{#if segment.type === 'duration'}<StepTimer label={segment.text} seconds={segment.seconds} />{:else}{segment.text}{/if}{/each}</p>
+        <p class="step-text">{#each stepSegments[index] as segment}{#if segment.type === 'duration'}<StepTimer label={segment.text} seconds={segment.seconds} stepSeconds={segment.stepSeconds} />{:else}{segment.text}{/if}{/each}</p>
       </li>
     {/each}
   </ol>

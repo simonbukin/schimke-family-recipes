@@ -13,17 +13,29 @@ describe("findDurations", () => {
     expect(secondsFor("Knead 10 min")).toEqual([600]);
   });
 
-  it("uses the upper bound of a range", () => {
-    // Underestimating a bake is worse than overestimating it.
-    expect(secondsFor("Bake 25-30 minutes")).toEqual([1800]);
-    expect(secondsFor("Rest 2–3 min")).toEqual([180]);
+  it("uses the midpoint of a range", () => {
+    expect(secondsFor("Bake 25-30 minutes")).toEqual([28 * 60]);
+    expect(secondsFor("Rest 2–3 min")).toEqual([3 * 60]);
+    expect(secondsFor("Bake 5-10 minutes")).toEqual([8 * 60]);
+  });
+
+  it("snaps a range midpoint to whole minutes, or whole seconds", () => {
+    // 7.5 minutes is an artefact of averaging, so it rounds to 8.
+    expect(secondsFor("Cook 5-10 minutes")).toEqual([480]);
+    // Seconds keep second precision: the midpoint of 60-90 really is 75.
+    expect(secondsFor("Saute 60-90 seconds")).toEqual([75]);
+  });
+
+  it("leaves an explicitly written fractional duration exact", () => {
+    // Only manufactured midpoints get rounded.
+    expect(secondsFor("Wait 2.5 minutes")).toEqual([150]);
   });
 
   it("reads a range written in words", () => {
     // Real recipes phrase it both ways: "2-3 minutes" and "55 to 65 minutes".
-    expect(secondsFor("Bake for 55 to 65 minutes")).toEqual([3900]);
-    expect(secondsFor("Beat until light, 3 to 4 minutes")).toEqual([240]);
-    expect(secondsFor("Rest 1 or 2 minutes")).toEqual([120]);
+    expect(secondsFor("Bake for 55 to 65 minutes")).toEqual([60 * 60]);
+    expect(secondsFor("Beat until light, 3 to 4 minutes")).toEqual([4 * 60]);
+    expect(secondsFor("Rest 1 or 2 minutes")).toEqual([2 * 60]);
   });
 
   it("keeps the whole range in the label", () => {
@@ -40,7 +52,15 @@ describe("findDurations", () => {
 
   it("handles mixed fractions and decimals", () => {
     expect(secondsFor("Rise for 1 1/2 hours")).toEqual([5400]);
-    expect(secondsFor("Wait 2.5 minutes")).toEqual([150]);
+  });
+
+  it("adjusts hours by the minute, not by the hour", () => {
+    expect(findDurations("Chill 1 to 2 hours")[0]).toMatchObject({
+      seconds: 90 * 60,
+      stepSeconds: 60,
+    });
+    expect(findDurations("Rest 30 seconds")[0].stepSeconds).toBe(1);
+    expect(findDurations("Bake 20 minutes")[0].stepSeconds).toBe(60);
   });
 
   it("finds several durations in one step", () => {
@@ -89,7 +109,7 @@ describe("segmentStep", () => {
     const segments = segmentStep("Bake for 20 minutes until golden");
     expect(segments).toEqual([
       { type: "text", text: "Bake for " },
-      { type: "duration", text: "20 minutes", seconds: 1200 },
+      { type: "duration", text: "20 minutes", seconds: 1200, stepSeconds: 60 },
       { type: "text", text: " until golden" },
     ]);
     expect(segments.map((s) => s.text).join("")).toBe(
