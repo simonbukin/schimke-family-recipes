@@ -16,11 +16,18 @@ const deleted = Astro.url.searchParams.has("deleted");
 ---
 
 <Layout title="Manage recipes">
-  <main class="min-h-screen bg-orange-50 p-4 max-w-2xl mx-auto">
+  <main class="min-h-screen bg-page p-4 max-w-2xl mx-auto">
+    <a
+      href="/"
+      class="inline-flex items-center gap-1 min-h-[44px] text-accent hover:text-accent-strong"
+    >
+      ← Back to the site
+    </a>
+
     <header class="flex items-center justify-between gap-3 mb-4">
-      <h1 class="text-2xl font-bold text-gray-900">Recipes</h1>
+      <h1 class="text-2xl font-bold text-ink">Recipes</h1>
       <form method="POST" action={actions.logout}>
-        <button class="text-sm text-gray-500 hover:text-gray-700 min-h-[44px] px-2">
+        <button class="text-sm text-ink-subtle hover:text-ink min-h-[44px] px-2">
           Sign out {Astro.locals.editor}
         </button>
       </form>
@@ -28,7 +35,7 @@ const deleted = Astro.url.searchParams.has("deleted");
 
     {
       deleted && (
-        <p class="mb-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg p-3 text-sm">
+        <p class="mb-4 bg-accent-soft border border-accent-line text-accent rounded-lg p-3 text-sm">
           Recipe deleted. It disappears from the site once the rebuild finishes.
         </p>
       )
@@ -36,7 +43,7 @@ const deleted = Astro.url.searchParams.has("deleted");
 
     <a
       href="/admin/new"
-      class="flex items-center justify-center gap-2 min-h-[52px] mb-4 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600"
+      class="flex items-center justify-center gap-2 min-h-[52px] mb-4 bg-brand text-white font-semibold rounded-lg hover:bg-brand-strong"
     >
       + Add a recipe
     </a>
@@ -47,18 +54,18 @@ const deleted = Astro.url.searchParams.has("deleted");
           <li>
             <a
               href={`/admin/${recipe.id}`}
-              class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[56px]"
+              class="flex items-center gap-3 p-3 bg-surface rounded-lg shadow-sm hover:shadow-md transition-shadow min-h-[56px]"
             >
               <span class="text-2xl">{recipe.data.emoji}</span>
-              <span class="flex-1 font-medium text-gray-900">{recipe.data.name}</span>
-              <span class="text-xs uppercase tracking-wide text-gray-400">{recipe.data.type}</span>
+              <span class="flex-1 font-medium text-ink">{recipe.data.name}</span>
+              <span class="text-xs uppercase tracking-wide text-ink-subtle">{recipe.data.type}</span>
             </a>
           </li>
         ))
       }
     </ul>
 
-    <a href="/" class="block text-center mt-6 text-sm text-gray-500 hover:text-gray-700">
+    <a href="/" class="block text-center mt-6 text-sm text-ink-subtle hover:text-ink">
       Back to the site
     </a>
   </main>

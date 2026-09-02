@@ -54,9 +54,8 @@
     }
   }
 
-  const handleToggleClick = async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    isEnabled = target.checked;
+  const toggle = async () => {
+    isEnabled = !isEnabled;
 
     if (isEnabled) {
       timer = 0;
@@ -74,6 +73,14 @@
     }, 1000);
   };
 
+  /** Raw seconds stop being readable after a minute or so. */
+  const formatElapsed = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    return minutes > 0
+      ? `${minutes}m ${String(seconds % 60).padStart(2, "0")}s`
+      : `${seconds}s`;
+  };
+
   const stopTimer = () => {
     if (interval) {
       clearInterval(interval);
@@ -84,22 +91,92 @@
 </script>
 
 {#if isSupported}
-  <div class="my-4 flex flex-row items-center flex-wrap gap-2">
-    <label class="font-bold flex items-center gap-2 cursor-pointer" for="wake-lock-toggle">
-      <input
-        class="aspect-square w-[20px] shrink-0"
-        type="checkbox"
-        id="wake-lock-toggle"
-        checked={isEnabled}
-        onchange={handleToggleClick}
-      />
-      {toggleLabel}
-    </label>
+  <div class="wake">
+    <button
+      type="button"
+      class="switch"
+      class:on={isEnabled}
+      role="switch"
+      aria-checked={isEnabled}
+      onclick={toggle}
+    >
+      <span class="track"><span class="thumb"></span></span>
+      <span class="label">Keep screen awake</span>
+    </button>
+
     {#if isEnabled && wakeLock}
-      <p class="text-sm text-gray-600">cookin' for {timer}s 👨‍🍳</p>
+      <p class="status">cookin' for {formatElapsed(timer)} 👨‍🍳</p>
     {/if}
     {#if error}
-      <p class="text-sm text-red-500">{error}</p>
+      <p class="error">{error}</p>
     {/if}
   </div>
 {/if}
+
+<style>
+  .wake {
+    margin: 1rem 0;
+  }
+
+  /* Full-width and 44px tall: this gets tapped with messy hands. */
+  .switch {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--color-edge);
+    border-radius: 0.625rem;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .switch.on {
+    border-color: var(--color-marker);
+    background: var(--color-accent-soft);
+  }
+
+  .track {
+    position: relative;
+    flex-shrink: 0;
+    width: 42px;
+    height: 24px;
+    border-radius: 9999px;
+    background: var(--color-edge-strong);
+    transition: background-color 0.15s;
+  }
+
+  .switch.on .track {
+    background: var(--color-marker);
+  }
+
+  .thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background: #fff;
+    transition: transform 0.15s;
+  }
+
+  .switch.on .thumb {
+    transform: translateX(18px);
+  }
+
+  .status {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+  }
+
+  .error {
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
+    color: var(--color-danger);
+  }
+</style>

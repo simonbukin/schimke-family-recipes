@@ -373,7 +373,7 @@
   }
 
   .card {
-    background: white;
+    background: var(--color-surface);
     border-radius: 0.75rem;
     padding: 1rem;
     box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
@@ -385,7 +385,7 @@
   h2 {
     font-size: 1.125rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--color-ink);
   }
 
   .section-head {
@@ -409,7 +409,7 @@
   .field > span {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--color-ink-muted);
   }
 
   .grow {
@@ -438,9 +438,9 @@
     font-size: 16px;
     padding: 0.625rem;
     min-height: 44px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--color-edge);
     border-radius: 0.5rem;
-    background: white;
+    background: var(--color-surface);
     width: 100%;
   }
 
@@ -453,7 +453,7 @@
   select:focus,
   textarea:focus {
     outline: none;
-    border-color: #f59e0b;
+    border-color: var(--color-brand);
   }
 
   /*
@@ -469,7 +469,7 @@
     gap: 0.375rem;
     align-items: center;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid var(--color-edge);
   }
 
   .entry:last-of-type {
@@ -514,7 +514,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f97316;
+    background: var(--color-marker);
     color: white;
     border-radius: 9999px;
     font-size: 0.8125rem;
@@ -530,17 +530,17 @@
   .entry-actions button {
     width: 40px;
     height: 40px;
-    border: 2px solid #e5e7eb;
+    border: 2px solid var(--color-edge);
     border-radius: 0.5rem;
-    background: white;
-    color: #6b7280;
+    background: var(--color-surface);
+    color: var(--color-ink-muted);
     cursor: pointer;
     font-size: 0.875rem;
   }
 
   .entry-actions button.danger {
-    color: #dc2626;
-    border-color: #fecaca;
+    color: var(--color-danger);
+    border-color: var(--color-danger-line);
   }
 
   @media (min-width: 560px) {
@@ -575,7 +575,7 @@
   }
 
   button.primary {
-    background: #f59e0b;
+    background: var(--color-brand);
     color: white;
     border: none;
     flex: 1;
@@ -586,22 +586,22 @@
   }
 
   button.secondary {
-    background: #fff7ed;
-    border: 2px solid #fed7aa;
-    color: #c2410c;
+    background: var(--color-accent-soft);
+    border: 2px solid var(--color-accent-line);
+    color: var(--color-accent);
   }
 
   button.ghost {
     background: transparent;
     border: none;
-    color: #c2410c;
+    color: var(--color-accent);
     font-size: 0.875rem;
   }
 
   button.danger-outline {
-    background: white;
-    border: 2px solid #fecaca;
-    color: #dc2626;
+    background: var(--color-surface);
+    border: 2px solid var(--color-danger-line);
+    color: var(--color-danger);
   }
 
   .actions {
@@ -610,28 +610,28 @@
     display: flex;
     gap: 0.5rem;
     padding: 0.75rem 0;
-    background: linear-gradient(to top, #fff7ed 70%, transparent);
+    background: linear-gradient(to top, var(--color-page) 70%, transparent);
   }
 
   .error {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #b91c1c;
+    background: var(--color-danger-soft);
+    border: 1px solid var(--color-danger-line);
+    color: var(--color-danger-ink);
     padding: 0.75rem;
     border-radius: 0.5rem;
   }
 
   .field-error {
     font-size: 0.8125rem;
-    color: #b91c1c;
+    color: var(--color-danger-ink);
   }
 
   input.invalid {
-    border-color: #fca5a5;
+    border-color: var(--color-danger-line);
   }
 
   .hint {
     font-size: 0.8125rem;
-    color: #9ca3af;
+    color: var(--color-ink-subtle);
   }
 </style>

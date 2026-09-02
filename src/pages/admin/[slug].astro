@@ -31,16 +31,16 @@ const initial = recipe.data as RecipeFile;
 ---
 
 <Layout title={`Edit ${recipe.data.name}`}>
-  <main class="min-h-screen bg-orange-50 p-4 max-w-2xl mx-auto">
-    <a href="/admin" class="inline-flex items-center min-h-[44px] text-orange-700 hover:text-orange-800">
+  <main class="min-h-screen bg-page p-4 max-w-2xl mx-auto">
+    <a href="/admin" class="inline-flex items-center min-h-[44px] text-accent hover:text-accent-strong">
       ← All recipes
     </a>
-    <h1 class="text-2xl font-bold text-gray-900 mb-4">
+    <h1 class="text-2xl font-bold text-ink mb-4">
       {recipe.data.emoji} {recipe.data.name}
     </h1>
     {
       versionError && (
-        <p class="mb-4 bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm">
+        <p class="mb-4 bg-danger-soft border border-danger-line text-danger-ink rounded-lg p-3 text-sm">
           {versionError}
         </p>
       )

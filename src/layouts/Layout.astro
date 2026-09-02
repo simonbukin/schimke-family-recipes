@@ -17,6 +17,19 @@ const { title } = Astro.props;
     <meta name="description" content="Schimke Family Recipes - A collection of family recipes" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#f59e0b" />
+    <script is:inline>
+      // Runs before first paint so the page never flashes the wrong theme.
+      // Light is the default; dark is opt-in and remembered per device.
+      (() => {
+        let theme = "light";
+        try {
+          if (localStorage.getItem("theme") === "dark") theme = "dark";
+        } catch {
+          // Private mode or blocked storage: stay on the default.
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="icon" type="image/svg+xml" href="/icons/icon-192.svg" />
@@ -25,6 +38,17 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
+    <script is:inline>
+      // View transitions swap the document, so re-assert the theme afterwards.
+      document.addEventListener("astro:after-swap", () => {
+        try {
+          document.documentElement.dataset.theme =
+            localStorage.getItem("theme") === "dark" ? "dark" : "light";
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      });
+    </script>
   </head>
   <body>
     <slot />

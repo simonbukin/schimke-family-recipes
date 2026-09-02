@@ -3,13 +3,17 @@ import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Search from "../components/Search.svelte";
 import { toSearchEntry } from "../utils/search";
+import ThemeToggle from "../components/ThemeToggle.svelte";
 
 const recipes = (await getCollection("recipes")).map(toSearchEntry);
 ---
 
 <Layout title="Schimke Family Recipes">
-  <main class="min-h-screen bg-orange-50 flex flex-col">
-    <header class="bg-amber-500 p-4 shadow-md">
+  <main class="min-h-viewport bg-page flex flex-col">
+    <header class="bg-brand p-4 shadow-md relative">
+      <div class="absolute left-3 top-3">
+        <ThemeToggle client:load />
+      </div>
       <h1
         class="max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto font-display text-center text-2xl sm:text-3xl md:text-4xl text-white"
       >

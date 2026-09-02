@@ -172,21 +172,21 @@
     width: 100%;
     padding: 0.75rem 1rem;
     padding-right: 2.5rem;
-    border: 3px solid #cbd5e1;
+    border: 3px solid var(--color-edge-strong);
     border-radius: 0.75rem;
     font-size: 1rem;
-    background: white;
+    background: var(--color-surface);
     transition: border-color 0.2s, box-shadow 0.2s;
   }
 
   .search-input:focus {
     outline: none;
-    border-color: #f97316;
+    border-color: var(--color-marker);
     box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
   }
 
   .search-input::placeholder {
-    color: #9ca3af;
+    color: var(--color-ink-subtle);
   }
 
   .clear-btn {
@@ -197,7 +197,7 @@
     padding: 0;
     background: none;
     border: none;
-    color: #9ca3af;
+    color: var(--color-ink-subtle);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -206,7 +206,7 @@
   }
 
   .clear-btn:hover {
-    color: #6b7280;
+    color: var(--color-ink-muted);
   }
 
   .clear-btn svg {
@@ -220,11 +220,11 @@
     gap: 0.5rem;
     padding: 0.5rem 0;
     text-decoration: none;
-    color: #1f2937;
+    color: var(--color-ink);
   }
 
   .result-item:hover .result-name {
-    color: #f97316;
+    color: var(--color-marker);
   }
 
   .result-emoji {
@@ -239,14 +239,14 @@
 
   .result-time {
     font-weight: 600;
-    color: #f97316;
+    color: var(--color-marker);
     font-size: 0.875rem;
     min-width: 3.25rem;
   }
 
   .no-results {
     padding: 0.5rem 0;
-    color: #6b7280;
+    color: var(--color-ink-muted);
     font-size: 0.875rem;
   }
 
@@ -272,11 +272,11 @@
   }
 
   .btn-poggers {
-    background: linear-gradient(135deg, #a78bfa, #e879f9);
+    background: linear-gradient(135deg, var(--fun-a-from), var(--fun-a-to));
   }
 
   .btn-hungry {
-    background: linear-gradient(135deg, #22d3ee, #3b82f6);
+    background: linear-gradient(135deg, var(--fun-b-from), var(--fun-b-to));
   }
 
   .btn-poggers:hover,

@@ -9,11 +9,11 @@ const recipeOptions = (await getCollection("recipes"))
 ---
 
 <Layout title="Add a recipe">
-  <main class="min-h-screen bg-orange-50 p-4 max-w-2xl mx-auto">
-    <a href="/admin" class="inline-flex items-center min-h-[44px] text-orange-700 hover:text-orange-800">
+  <main class="min-h-screen bg-page p-4 max-w-2xl mx-auto">
+    <a href="/admin" class="inline-flex items-center min-h-[44px] text-accent hover:text-accent-strong">
       ← All recipes
     </a>
-    <h1 class="text-2xl font-bold text-gray-900 mb-4">Add a recipe</h1>
+    <h1 class="text-2xl font-bold text-ink mb-4">Add a recipe</h1>
     <RecipeForm client:load recipeOptions={recipeOptions} />
   </main>
 </Layout>
