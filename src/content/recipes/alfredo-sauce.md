@@ -26,14 +26,14 @@ ingredients:
   - name: "Pepper"
     qty: "to taste"
 cookware:
-  - name: "Sauce pan"
+  - name: "Small pot"
     qty: "1"
   - name: "Whisk"
     qty: "1"
 steps:
-  - "Melt the butter over medium heat in a pan."
+  - "Melt the butter over medium heat in a small pot."
   - "Whisk in the heavy whipping cream until combined."
-  - "Add the garlic powder, Italian seasoning and salt and pepper."
-  - "Gradually add the grated Parmesan cheese."
-  - "Simmer the sauce until smooth."
+  - "Add garlic powder, Italian seasoning and salt and pepper."
+  - "Gradually add the grated Parmesan cheese, whisking constantly."
+  - "Simmer the sauce until smooth. Serve over your choice of pasta."
 ---
